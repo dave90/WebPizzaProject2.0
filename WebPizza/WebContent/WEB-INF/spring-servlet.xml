@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	">
+	<context:component-scan base-package="it.unical.mat.webPizza" />
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="ClientDAO" class="it.unical.mat.webPizza.daoImpl.ClientDAOImpl" />
+	<bean id="ShoppingCart" class="it.unical.mat.webPizza.controller.ShoppingCart" />
+	<bean id="AdminDAO" class="it.unical.mat.webPizza.daoImpl.AdminDAOImpl" />
+	<bean id="PizzaChefDAO" class="it.unical.mat.webPizza.daoImpl.PizzaChefDAOImpl" />
+	<bean id="DeliverymanDAO" class="it.unical.mat.webPizza.daoImpl.DeliverymanDAOImpl" />
+	<bean id="OrderDAO" class="it.unical.mat.webPizza.daoImpl.OrderDAOImpl" />
+	<bean id="OnlineOrderDAO" class="it.unical.mat.webPizza.daoImpl.OnlineOrderDAOImpl" />
+	<bean id="PizzaDAO" class="it.unical.mat.webPizza.daoImpl.PizzaDAOImpl" />
+	<bean id="PizzaIngredientsDAO" class="it.unical.mat.webPizza.daoImpl.PizzaIngredientsDAOImpl" />
+
+
+
+	   <!-- bean definition & AOP specific configuration -->
+   <bean id="manageBalanceChef" class="it.unical.mat.webPizza.service.ManageBalanceChef" />
+   
+<!--    <aop:config>
+  	 <aop:aspect id="addChecfLogin" ref="manageBalanceChef">
+  			   <aop:pointcut id="addPizzaChef"
+     				 expression="execution(* it.unical.mat.webPizza.dao.PizzaChefDAO.getPizzaChef(..))"/> 
+     				 
+     				 <aop:after-returning pointcut-ref="addPizzaChef" method="insertChef"/>
+   	</aop:aspect>
+</aop:config> -->
+		<aop:aspectj-autoproxy />
+</beans>
+	
