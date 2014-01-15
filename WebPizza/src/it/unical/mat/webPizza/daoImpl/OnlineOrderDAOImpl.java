@@ -84,11 +84,13 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 			OnlineOrder order=(OnlineOrder) session.get(OnlineOrder.class, id);
 			order.setDeliveryStatus(deliveryStatus);
 			session.update(order);
+			result=1;
 			
 			transaction.commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			result=0;
 		} finally {
 			session.close();
 		}
@@ -150,7 +152,6 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 			OnlineOrder order=(OnlineOrder) session.get(OnlineOrder.class, idOrder);
 			
 			if(order.getDeliveryman()!=null )
-				if(order.getDeliveryman().getLatitude()!=null && order.getDeliveryman().getLongitude()!=null)
 					result=order.getDeliveryman().getLatitude()+";"+order.getDeliveryman().getLongitude();
 			
 			transaction.commit();
@@ -187,7 +188,6 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 		return result;
 	}
 
-	@Override
 	public List<OnlineOrder> getPizzaChefOrder(Long id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
@@ -208,6 +208,27 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 		}
 		
 		return result;
+		
+	}
+	
+	public OnlineOrder getOnlineOrder(Long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+		OnlineOrder order = null;
+		try {
+		
+			transaction = session.beginTransaction();
+			
+			order= (OnlineOrder) session.load(OnlineOrder.class, id);
+
+			transaction.commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			session.close();
+		}
+		return order;
 	}
 
 }

@@ -74,13 +74,15 @@
                        <!-- Your name -->
                        <table>
                        <tr>
-                       <td style="padding: 10px;">Name</td> <td><strong>${delivery.name}</strong></td> 
+                       <td style="padding: 10px;">Name</td> <td><strong>${deliveryman.name}</strong></td> 
                        </tr>
                        <tr>
-                       <td style="padding: 10px;">Surname</td> <td><strong>${delivery.surname}</strong></td>
+                       <td style="padding: 10px;">Surname</td> <td><strong>${deliveryman.surname}</strong></td>
 					   </tr>
 
 					  </table>
+					  <hr/>
+					  <hr/>
 					<c:forEach items="${orders}" var="order">  
 					<table class="table table-striped tcart">
 	              <h4>Order ${order.id}:</h4>
@@ -108,7 +110,7 @@
                   <th>Quantity</th>
                 </tr>
               </thead>
-              <tbody id="cartBody">
+              <tbody>
               <c:forEach var="pizza" items="${order.pizzas}" >
               <tr>
               	<td>${pizza.pizza.name}</td>

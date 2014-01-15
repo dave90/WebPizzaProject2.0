@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<!-- Title here -->
-		<title>Wish List - Olson Kart</title>
+		<title>Order Detail</title>
 		<!-- Description, Keywords and Author -->
 		<meta name="description" content="Your description">
 		<meta name="keywords" content="Your,Keywords">
@@ -47,7 +47,7 @@
       <!-- Page title -->
       <div class="page-title">
          <div class="container">
-            <h2><i class="icon-desktop color"></i> My Account <small>Subtext for header</small></h2>
+            <h2><i class="icon-desktop color"></i> Order <small>Detail</small></h2>
             <hr />
          </div>
       </div>
@@ -79,19 +79,31 @@
                         <th>Status</th>
                         <th>Paid</th>
                         <th>Pizzaiolo</th>
+                        <c:if test="${onlineOrder != null }"><th>Delivery Status</th></c:if>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>${order.id}</td>
+                        <td id="orderId">${order.id}</td>
                         <td>${order.date}</td>
                         <td>${order.status}</td>
                         <td>${order.paid}</td>
                         <td>${order.pizzaiolo.username}</td>
+                        <c:if test="${onlineOrder != null }"><td>${onlineOrder.deliveryStatus}</td></c:if>
                       </tr>                                                                                                         
                     </tbody>
                   </table>
-              <h4>Pizza:</h4>
+                  
+             <input hidden="true" id="latitude" value=""/>
+             <input hidden="true" id="longitude" value=""/>
+             <c:if test="${onlineOrder != null }">
+             	<div id="map-canvas" style="background-color:black; height:400px" >
+            	</div>
+             </c:if>
+              
+                 
+             <h4>Pizza:</h4>
+
               <table class="table table-striped">
                <thead>
                 <tr>
@@ -135,22 +147,30 @@
 		<!-- jQuery -->
 		<script src="resource/js/jquery.js"></script>
 		<!-- Bootstrap JS -->
-		<script src="js/bootstrap.min.js"></script>
+		<script src="resource/js/bootstrap.min.js"></script>
 		<!-- Dropdown menu -->
-		<script src="js/ddlevelsmenu.js"></script>      
+		<script src="resource/js/ddlevelsmenu.js"></script>      
       <!-- CaroFredSel -->
-      <script src="js/jquery.carouFredSel-6.2.1-packed.js"></script> 
+      <script src="resource/js/jquery.carouFredSel-6.2.1-packed.js"></script> 
       <!-- Countdown -->
-      <script src="js/jquery.countdown.min.js"></script>    
+      <script src="resource/js/jquery.countdown.min.js"></script>    
       <!-- jQuery Navco -->
-      <script src="js/jquery.navgoco.min.js"></script>
+      <script src="resource/js/jquery.navgoco.min.js"></script>
       <!-- Filter for support page -->
-      <script src="js/filter.js"></script>         
+      <script src="resource/js/filter.js"></script>         
 		<!-- Respond JS for IE8 -->
-		<script src="js/respond.min.js"></script>
+		<script src="resource/js/respond.min.js"></script>
 		<!-- HTML5 Support for IE -->
-		<script src="js/html5shiv.js"></script>
+		<script src="resource/js/html5shiv.js"></script>
 		<!-- Custom JS -->
-		<script src="js/custom.js"></script>
+		<script src="resource/js/custom.js"></script>
+		
+		
+		
+		 <c:if test="${onlineOrder != null }">
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+		<script src="resource/js/displayDeliveryPosition.js"></script>
+		</c:if>
+		
 	</body>	
 </html>

@@ -46,7 +46,7 @@
       <!-- Page title -->
       <div class="page-title">
          <div class="container">
-            <h2><i class="icon-desktop color"></i> My Account </h2>
+            <h2><i class="icon-desktop color"></i> Deliveryman </h2>
             <hr />
          </div>
       </div>
@@ -61,20 +61,27 @@
                <div class="col-md-3">
                   <div class="sidey">
                      <ul class="nav">
-                         <li><a href="#">Not delivered</a></li>
-                         <li><a href="#" id="ingredients">Delivered</a></li>
-						 <li><a href="#" id="ingredients">Suspended</a></li>
-						 <li><a href="#" id="ingredients">Annulled</a></li>                    
+                         <li><a  style="cursor: pointer;" class="modifyOrderStatus" id="status-Not delivered">Not delivered</a></li>
+                         <li><a  style="cursor: pointer;" class="modifyOrderStatus" id="status-Delivered">Delivered</a></li>
+						 <li><a  style="cursor: pointer;" class="modifyOrderStatus" id="status-Suspended">Suspended</a></li>
+						 <li><a  style="cursor: pointer;" class="modifyOrderStatus" id="status-Annulled">Annulled</a></li>                    
                      </ul>
                   </div>
                </div>
                <div class="col-md-9" id="mainDiv">
                   <h3><i class="icon-user color"></i> &nbsp;Map</h3>
+                  <input hidden="true" id="end" value="${order.address}" />
                   <!-- Your details -->
                    <div class="address">
                    
-                  <div style="background-color:black; height:400px" >
+                  <div id="map-canvas" style="background-color:black; height:400px" >
                   </div>
+                  
+                  <ul class="pagination">
+					 <c:forEach items="${ids}" var="id">                  		
+                       <li><a href="#map-canvas" class="recalculateRoute" id="id-${id}" >#${id}</a></li>
+                      </c:forEach>
+                   </ul> 
                        
 					<hr/>
 	              	<h4 id="orderId">Order ${order.id}:</h4>
@@ -87,7 +94,14 @@
                         <th>Paid</th>
                       </tr>
                     </thead>
-                    <tbody id="orderDetail">                                                                                                         
+                    <tbody id="orderDetail">   
+                      <tr>
+                        <td>${order.date}</td>
+                        <td id="delStatus">${order.deliveryStatus}</td>
+                        <td>${order.address}</td>
+                        <td>${order.paid}</td>
+                      </tr>  
+                                                                                                                         
                     </tbody>
                   </table>
               <table class="table table-striped">
@@ -98,6 +112,17 @@
                 </tr>
               </thead>
               <tbody id="orderPizza">
+              <c:forEach var="pizza" items="${order.pizzas}" >
+              <tr>
+              	<td>${pizza.pizza.name}</td>
+              	<td>${pizza.quantity}</td>
+              </tr>
+              </c:forEach>
+              <tr>
+              <th></th>
+              <th>Total</th>
+              <th>&euro; ${order.prize}</th>
+              </tr>              
               </tbody>
             </table>
             <hr/>
@@ -147,7 +172,10 @@
 		<script src="resource/js/html5shiv.js"></script>
 		<!-- Custom JS -->
 		<script src="resource/js/custom.js"></script>
-
+		
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+		<script src="resource/js/deliveryManTour.js"></script>
+		
 		
 		
 	</body>	

@@ -12,6 +12,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpSession;
 
 import it.unical.mat.webPizza.domain.Client;
+import it.unical.mat.webPizza.domain.OnlineOrder;
 import it.unical.mat.webPizza.domain.Order;
 import it.unical.mat.webPizza.domain.Pizza;
 import it.unical.mat.webPizza.domain.PizzaIngredients;
@@ -429,10 +430,16 @@ public class AccountController {
 		if(!model.containsAttribute("client")){
 			return "redirect:login.html";
 		}
-		
 		Order order=orderManager.getOrder(id);
-		if(order.getClient().getId()==((Client) model.asMap().get("client")).getId())
-			model.addAttribute("order", order);
+		model.addAttribute("order", order);		
+
+		if(order.getClient().getId()!=((Client) model.asMap().get("client")).getId())
+			return "order";
+		
+		OnlineOrder onlineOrder=orderManager.getOnlineOrder(id);
+		if(onlineOrder!=null ){
+				model.addAttribute("onlineOrder", onlineOrder);
+		}
 
 		return "order";
 	}

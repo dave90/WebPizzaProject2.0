@@ -20,5 +20,7 @@ public interface OnlineOrderDAO  {
 	public List<OnlineOrder> getdeliveryManOrder(Long id);
 	public List<OnlineOrder> getPizzaChefOrder(Long id);
 	public String getDeliveryManPositionByOrder(Long idOrder);
+	public OnlineOrder getOnlineOrder(Long id);
+	
 	
 }

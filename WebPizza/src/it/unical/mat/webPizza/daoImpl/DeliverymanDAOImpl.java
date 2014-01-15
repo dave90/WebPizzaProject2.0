@@ -91,7 +91,7 @@ public class DeliverymanDAOImpl implements DeliverymanDAO {
 	}
 
 	@Override
-	public int updateLatLong(Long id,Long longitude, Long latitude) {
+	public int updateLatLong(Long id,double longitude, double latitude) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
 		int result = 0;
@@ -107,10 +107,34 @@ public class DeliverymanDAOImpl implements DeliverymanDAO {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			result=0;
 		} finally {
 			session.close();
 		}
 		return result;
 	}
+
+	@Override
+	public String getLatLong(Long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+		Deliveryman delivery = null;
+		String latLong = null;
+		try {
+			transaction = session.beginTransaction();
+			
+			delivery= (Deliveryman) session.load(Deliveryman.class, id);
+			latLong=delivery.getLatitude()+""+delivery.getLongitude();
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			session.close();
+		}
+		return latLong;
+	}
+	
 
 }

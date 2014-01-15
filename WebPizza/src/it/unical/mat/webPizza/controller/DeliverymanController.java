@@ -1,5 +1,6 @@
 package it.unical.mat.webPizza.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import it.unical.mat.webPizza.domain.Administrator;
@@ -16,14 +17,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes({"deliveryman","orders"})
+@SessionAttributes({"deliveryman","ordersManager"})
 public class DeliverymanController {
 	
 	@Autowired
 	private AccessManager accessManager;
+	
 	
 	@Autowired
 	private OrderManager orderManager;
@@ -62,7 +65,9 @@ public class DeliverymanController {
 		if(model.containsAttribute("deliveryman")){
 			Long id=((Deliveryman) model.asMap().get("deliveryman")).getId();
 			List<OnlineOrder> orders=orderManager.getDeliverymanOrder(id);
-			model.addAttribute("orders", orders);
+			DeliverymanTourManager manager=new DeliverymanTourManager(orders);
+			model.addAttribute("ordersManager", manager);
+			model.addAttribute("orders", manager.getOrders());
 			
 			return "accountDeliveryman";
 		}
@@ -72,12 +77,79 @@ public class DeliverymanController {
 	@RequestMapping(value = "/deliverymanTour", method = RequestMethod.GET)
 	public String deliverymanTour(Model model) {
 		if(model.containsAttribute("deliveryman")){
-
-			
+			DeliverymanTourManager manager= (DeliverymanTourManager) model.asMap().get("ordersManager");
+			if(manager.getOrders().size()>0){
+				model.addAttribute("order", manager.getOrders().get(0));
+				model.addAttribute("ids", manager.getIds());
+			}
 			return "deliverymanTour";
 		}
 		return "redirect:deliverymanLogin.html";
 	}
 	
+	@RequestMapping(value = "/deliveryOrder", method = RequestMethod.POST)
+	public @ResponseBody String getDeliveryOrder(@RequestParam(value="id") Long id,
+										Model model) {
+		
+		if(model.containsAttribute("deliveryman")){
+			DeliverymanTourManager manager= (DeliverymanTourManager) model.asMap().get("ordersManager");
+			
+			return manager.getOrderResponse(id);
+		}
+		
+		return "Error";
+	}
+	
+	@RequestMapping(value = "/deliveryLatLong", method = RequestMethod.POST)
+	public @ResponseBody String setDeliveryLatLong(@RequestParam(value="lat") double lat,@RequestParam(value="long") double longi,
+										Model model) {
+		
+		if(model.containsAttribute("deliveryman")){
+			Deliveryman deliveryman=(Deliveryman) model.asMap().get("deliveryman");
+			accessManager.setLatLongDeliveryman(deliveryman.getId(), lat, longi);
+			return "OK";
+		}
+		
+		return "Error";
+	}
+	
+	@RequestMapping(value = "/getdeliveryLatLong", method = RequestMethod.POST)
+	public @ResponseBody String getDeliveryLatLong(@RequestParam(value="id") Long id,
+										Model model) {
+		
+		String latLangString=orderManager.getDeliveryManPositionOrder(id);
+		if(latLangString==null)
+			return "no latitude longitude find";
+		
+		return latLangString;
+	}
+	
+	@RequestMapping(value = "/deliveryModifyStatusOrder", method = RequestMethod.POST)
+	public @ResponseBody String setDeliveryStatus(@RequestParam(value="id") Long id,@RequestParam(value="status") String status,
+										Model model) {
+		
+		if(model.containsAttribute("deliveryman")){
+			String deliveryStatus=null;
+			
+			if(status.equals(OnlineOrder.D_ANNULLED))
+				deliveryStatus=OnlineOrder.D_ANNULLED;
+			if(status.equals(OnlineOrder.D_DELIVERED))
+				deliveryStatus=OnlineOrder.D_DELIVERED;
+			if(status.equals(OnlineOrder.D_NOT_DELIVERY))
+				deliveryStatus=OnlineOrder.D_NOT_DELIVERY;
+			if(status.equals(OnlineOrder.D_SUSPENDED))
+				deliveryStatus=OnlineOrder.D_SUSPENDED;
+			if(deliveryStatus==null)
+				return "sTATUS WRONG";	
+			
+			
+			if(orderManager.updateDeliveryStatus(id, deliveryStatus))
+				return status;
+			
+			return "Status not changed";
+		}
+		
+		return "Error";
+	}
 
 }

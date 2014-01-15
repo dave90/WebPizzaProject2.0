@@ -82,4 +82,14 @@ public class AccessManager {
 	public boolean updateClient(Long id,String name,String surname,String user,String phone,String mail,String hpwd){
 		return clientDAO.updateClient(id, name, surname, user, phone, mail, hpwd);
 	}
+	
+	public String getLatLongDeliveryman(Long id){
+		return deliverymanDAO.getLatLong(id);
+	}
+	
+	public boolean setLatLongDeliveryman(Long id,double lat,double longi){
+		return deliverymanDAO.updateLatLong(id, lat, longi)>0;
+	}
+	
+	
 }

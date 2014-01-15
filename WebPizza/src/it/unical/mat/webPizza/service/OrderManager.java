@@ -175,6 +175,12 @@ public class OrderManager {
 		return orderDAO.getAllOrderOfCLient(client.getId());
 	}
 	
+	public OnlineOrder getOnlineOrder(Long id){
+		OnlineOrder order=onlineOrderDAO.getOnlineOrder(id);
+		HibernateUtil.getSessionFactory().openSession().update(order);
+		return order;
+	}
+	
 	public Order getOrder(Long id){
 		Order order=orderDAO.getOrder(id);
 		HibernateUtil.getSessionFactory().openSession().update(order);

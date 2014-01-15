@@ -33,10 +33,10 @@ public class Deliveryman {
 	private String hashPasswd;
 	
 	@Column(name="LONGITUDE")
-	private Long longitude;
+	private double longitude;
 	
 	@Column(name="LATITUDE")
-	private Long latitude;
+	private double latitude;
 	
 
 	public Deliveryman() {
@@ -90,19 +90,19 @@ public class Deliveryman {
 		this.hashPasswd = hashPasswd;
 	}
 
-	public Long getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Long longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
-	public Long getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Long latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 	
@@ -113,10 +113,11 @@ public class Deliveryman {
 		result = prime * result
 				+ ((hashPasswd == null) ? 0 : hashPasswd.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((latitude == null) ? 0 : latitude.hashCode());
-		result = prime * result
-				+ ((longitude == null) ? 0 : longitude.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(latitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(longitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
 				+ ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
@@ -145,15 +146,11 @@ public class Deliveryman {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (latitude == null) {
-			if (other.latitude != null)
-				return false;
-		} else if (!latitude.equals(other.latitude))
+		if (Double.doubleToLongBits(latitude) != Double
+				.doubleToLongBits(other.latitude))
 			return false;
-		if (longitude == null) {
-			if (other.longitude != null)
-				return false;
-		} else if (!longitude.equals(other.longitude))
+		if (Double.doubleToLongBits(longitude) != Double
+				.doubleToLongBits(other.longitude))
 			return false;
 		if (name == null) {
 			if (other.name != null)

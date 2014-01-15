@@ -7,6 +7,8 @@ public interface DeliverymanDAO {
 	public Long insertDeliveryman(String name,String surname,String user,String phone, String hpwd);
 	public Deliveryman getDeliveryman(Long id);
 	public Deliveryman getDeliveryman(String usr,String hpwd);
-	public int updateLatLong(Long id,Long longitude,Long latitude);
+	public int updateLatLong(Long id,double longitude,double latitude);
+	public String getLatLong(Long id);
+	
 
 }
