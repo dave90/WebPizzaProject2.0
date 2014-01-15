@@ -48,7 +48,7 @@ public class DeliverymanTourManager {
 			return "";
 		
 		String response=order.getAddress()+"*";
-		response+="<tr>"+"<td>"+order.getDate()+"</td>"+"<td id='delStatus'>"+order.getStatus()+"</td>"+"<td>"+order.getAddress()+"</td>"+"<td>"+order.isPaid()+"</td>"+"</tr>"+"*";
+		response+="<tr>"+"<td>"+order.getDate()+"</td>"+"<td id='delStatus'>"+order.getDeliveryStatus()+"</td>"+"<td>"+order.getAddress()+"</td>"+"<td>"+order.isPaid()+"</td>"+"</tr>"+"*";
 		for(PizzaQuantity p:order.getPizzas()){
 			response+="<tr>"+"<td>"+p.getPizza().getName()+"</td>"+"<td>"+p.getQuantity()+"</td>"+"</tr>";
 		}
