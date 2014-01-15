@@ -1,7 +1,10 @@
 package it.unical.mat.webPizza.controller;
 
 import it.unical.mat.webPizza.domain.Client;
+import it.unical.mat.webPizza.domain.Deliveryman;
+import it.unical.mat.webPizza.domain.OnlineOrder;
 import it.unical.mat.webPizza.domain.Pizza;
+import it.unical.mat.webPizza.domain.PizzaChef;
 import it.unical.mat.webPizza.service.AccessManager;
 import it.unical.mat.webPizza.service.OrderManager;
 import it.unical.mat.webPizza.util.MD5Java;
@@ -39,25 +42,49 @@ public class ChefController {
 	private static final Logger logger = LoggerFactory.getLogger(ChefController.class);
 
 	
-	@RequestMapping(value = "/logInChef", method = RequestMethod.POST)
+	@RequestMapping(value = "/chefLogin", method = RequestMethod.GET)
+	public String chefLogIn( Model model) {
+		if(!model.containsAttribute("chef")){
+		model.addAttribute("img", "resource/img/clients/pizzaChef.png");
+		model.addAttribute("actionUrl","chefLogIn.html");
+		
+		return "login";
+		}
+		return "redirect:accountPizzaChef.html";
+	}
+	
+	@RequestMapping(value = "/chefLogIn", method = RequestMethod.POST)
 	public String clientLogInValidation(@RequestParam(value="User") String usr,
 										@RequestParam(value="Password") String pwd,
 										Model model) {
 		
 		String hpwd=MD5Java.md5Java(pwd);
+		PizzaChef chef=accessManager.getPizzaChef(usr, pwd);
 		
-		Client client=accessManager.getClient(usr, hpwd);
-		
-		if(client==null){
+		if(chef==null){
 			model.addAttribute("notifyLog", "Error : User or password wrong");
 			model.addAttribute("img", "resource/img/clients/woman-eating-pizza.jpg");
-			model.addAttribute("actionUrl","logIn.html");
-			return "login";
+			model.addAttribute("actionUrl","chefLogIn.html");
+			System.out.println("null "+usr+" "+hpwd);
+			return "redirect:chefLogin.html";
 		}else{
-			model.addAttribute("client", client);
+			model.addAttribute("chef", chef);
 		}
 		
-		return "redirect:account.html";
+		return "redirect:accountPizzaChef.html";
+	}
+	
+	@RequestMapping(value = "/accountPizzaChef", method = RequestMethod.GET)
+	public String deliverymanAccount(Model model) {
+		if(model.containsAttribute("chef")){
+			Long id=((PizzaChef) model.asMap().get("chef")).getId();
+			List<OnlineOrder> orders=orderManager.getPizzaChefOrder(id);
+			System.out.println(orders);
+			model.addAttribute("orders", orders);
+			
+			return "accountPizzaChef";
+		}
+		return "redirect:chefLogin.html";
 	}
 	
 	

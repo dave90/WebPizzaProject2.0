@@ -8,7 +8,7 @@ import java.util.Random;
 public class RandomGen {
 	
 	public static void main(String[] args) {
-		new AccessManager().getPizzaChef("mario", "1234");
+		new AccessManager().insertPizzaChef("mario","asp", "mario", "1234");
 	}
 	
 	static Random r =new Random();

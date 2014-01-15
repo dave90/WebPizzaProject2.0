@@ -55,13 +55,6 @@ public class AccountController {
 		return "login";
 	}
 	
-	@RequestMapping(value = "/chefLogin", method = RequestMethod.GET)
-	public String chefLogIn( Model model) {
-		model.addAttribute("img", "resource/img/clients/pizzaChef.png");
-		model.addAttribute("actionUrl","chefLogIn.html");
-		
-		return "login";
-	}
 	
 	
 	
