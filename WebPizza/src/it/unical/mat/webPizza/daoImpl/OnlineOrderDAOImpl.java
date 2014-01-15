@@ -196,8 +196,10 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 		try {
 		
 			transaction = session.beginTransaction();
-			
-			order= (OnlineOrder) session.load(OnlineOrder.class, id);
+			Query query=session.createQuery("FROM OnlineOrder WHERE id=:id");
+			query.setParameter("id",id);
+			if(query.list().size()>0)
+				order= (OnlineOrder) query.list().get(0);
 
 			transaction.commit();
 		} catch (HibernateException e) {
