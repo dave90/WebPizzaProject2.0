@@ -187,4 +187,27 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 		return result;
 	}
 
+	@Override
+	public List<OnlineOrder> getPizzaChefOrder(Long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+		List<OnlineOrder> result = new ArrayList<OnlineOrder>();
+		try {
+			transaction = session.beginTransaction();
+			
+			Query query=session.createQuery("FROM Order WHERE pizzaiolo.id=:id");
+			query.setParameter("id", id);
+			result=query.list();
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			session.close();
+		}
+		
+		return result;
+	}
+
 }
