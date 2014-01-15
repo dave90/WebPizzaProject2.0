@@ -21,4 +21,5 @@ public interface OnlineOrderDAO  {
 	public String getDeliveryManPositionByOrder(Long idOrder);
 	public OnlineOrder getOnlineOrder(Long id);
 	
+	
 }

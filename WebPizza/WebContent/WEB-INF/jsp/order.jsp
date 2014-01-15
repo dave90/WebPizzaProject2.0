@@ -3,6 +3,7 @@
 <html>
 	<head>
 		<!-- Title here -->
+<<<<<<< HEAD
 		<title>Order Detail</title>
 		<!-- Description, Keywords and Author -->
 		<meta name="description" content="Your description">
@@ -94,6 +95,97 @@
                     </tbody>
                   </table>
              <h4>Pizza:</h4>
+=======
+		<title>Wish List - Olson Kart</title>
+		<!-- Description, Keywords and Author -->
+		<meta name="description" content="Your description">
+		<meta name="keywords" content="Your,Keywords">
+		<meta name="author" content="ResponsiveWebInc">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600italic,600' rel='stylesheet' type='text/css'>
+		
+		<!-- Styles -->
+		<!-- Bootstrap CSS -->
+		<link href="resource/css/bootstrap.min.css" rel="stylesheet">
+      <!-- Animate css -->
+      <link href="resource/css/animate.min.css" rel="stylesheet">
+      <!-- Dropdown menu -->
+      <link href="resource/css/ddlevelsmenu-base.css" rel="stylesheet">
+      <link href="resource/css/ddlevelsmenu-topbar.css" rel="stylesheet">
+      <!-- Countdown -->
+      <link href="resource/css/jquery.countdown.css" rel="stylesheet">  
+		<!-- Font awesome CSS -->
+		<link href="resource/css/font-awesome.min.css" rel="stylesheet">		
+		<!-- Custom CSS -->
+		<link href="resource/css/style.css" rel="stylesheet">
+		
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="#">
+	</head>
+	
+	<body>
+
+ 
+<!-- Shopping cart Modal -->
+ 		<jsp:include page="include/shoppingCart.jsp" />
+ 	  <!-- Shopping cart Modal -->	
+           
+      <!-- Logo & Navigation starts -->            
+ 		<jsp:include page="include/header.jsp" />
+ 	  <!-- Logo & Navigation end -->
+     
+      <!-- Page title -->
+      <div class="page-title">
+         <div class="container">
+            <h2><i class="icon-desktop color"></i> My Account <small>Subtext for header</small></h2>
+            <hr />
+         </div>
+      </div>
+      <!-- Page title -->
+      
+      <!-- Page content -->
+      
+      <div class="account-content">
+         <div class="container">
+            
+            <div class="row">
+               <div class="col-md-3">
+                  <div class="sidey">
+                     <ul class="nav">
+                         <li><a href="account.html">My Account</a></li>
+                         <li><a href="checkout.html">Chechout</a></li>
+                         <li><a href="orderhistory.html">Order History</a></li>                         
+                         <li><a href="editprofile.html">Edit Profile</a></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-md-9">
+                  <h3><i class="icon-user color"></i> &nbsp;Order Details</h3>
+                  <table class="table table-striped tcart">
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Paid</th>
+                        <th>Pizzaiolo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>${order.id}</td>
+                        <td>${order.date}</td>
+                        <td>${order.status}</td>
+                        <td>${order.paid}</td>
+                        <td>${order.pizzaiolo.username}</td>
+                      </tr>                                                                                                         
+                    </tbody>
+                  </table>
+              <h4>Pizza:</h4>
+>>>>>>> branch 'master' of https://github.com/dave90/WebPizzaProject2.0.git
               <table class="table table-striped">
                <thead>
                 <tr>

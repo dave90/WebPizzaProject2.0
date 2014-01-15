@@ -135,5 +135,6 @@ public class DeliverymanDAOImpl implements DeliverymanDAO {
 		}
 		return latLong;
 	}
+	
 
 }

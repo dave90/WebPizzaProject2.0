@@ -9,5 +9,6 @@ public interface DeliverymanDAO {
 	public Deliveryman getDeliveryman(String usr,String hpwd);
 	public int updateLatLong(Long id,Long longitude,Long latitude);
 	public String getLatLong(Long id);
+	
 
 }
