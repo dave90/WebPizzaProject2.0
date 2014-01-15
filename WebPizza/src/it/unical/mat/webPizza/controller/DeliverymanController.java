@@ -78,9 +78,10 @@ public class DeliverymanController {
 	public String deliverymanTour(Model model) {
 		if(model.containsAttribute("deliveryman")){
 			DeliverymanTourManager manager= (DeliverymanTourManager) model.asMap().get("ordersManager");
-			model.addAttribute("order", manager.getOrders().get(0));
-			model.addAttribute("ids", manager.getIds());
-			
+			if(manager.getOrders().size()>0){
+				model.addAttribute("order", manager.getOrders().get(0));
+				model.addAttribute("ids", manager.getIds());
+			}
 			return "deliverymanTour";
 		}
 		return "redirect:deliverymanLogin.html";
@@ -97,6 +98,30 @@ public class DeliverymanController {
 		}
 		
 		return "Error";
+	}
+	
+	@RequestMapping(value = "/deliveryLatLong", method = RequestMethod.POST)
+	public @ResponseBody String setDeliveryLatLong(@RequestParam(value="lat") double lat,@RequestParam(value="long") double longi,
+										Model model) {
+		
+		if(model.containsAttribute("deliveryman")){
+			Deliveryman deliveryman=(Deliveryman) model.asMap().get("deliveryman");
+			accessManager.setLatLongDeliveryman(deliveryman.getId(), lat, longi);
+			return "OK";
+		}
+		
+		return "Error";
+	}
+	
+	@RequestMapping(value = "/getdeliveryLatLong", method = RequestMethod.POST)
+	public @ResponseBody String getDeliveryLatLong(@RequestParam(value="id") Long id,
+										Model model) {
+		
+		String latLangString=orderManager.getDeliveryManPositionOrder(id);
+		if(latLangString==null)
+			return "no latitude longitude find";
+		
+		return latLangString;
 	}
 	
 	@RequestMapping(value = "/deliveryModifyStatusOrder", method = RequestMethod.POST)

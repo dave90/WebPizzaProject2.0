@@ -87,8 +87,8 @@ public class AccessManager {
 		return deliverymanDAO.getLatLong(id);
 	}
 	
-	public boolean setLatLongDeliveryman(Long id,Long lat,Long longi){
-		return deliverymanDAO.updateLatLong(id, longi, longi)>0;
+	public boolean setLatLongDeliveryman(Long id,double lat,double longi){
+		return deliverymanDAO.updateLatLong(id, lat, longi)>0;
 	}
 	
 	

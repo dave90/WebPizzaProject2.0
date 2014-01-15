@@ -91,7 +91,7 @@ public class DeliverymanDAOImpl implements DeliverymanDAO {
 	}
 
 	@Override
-	public int updateLatLong(Long id,Long longitude, Long latitude) {
+	public int updateLatLong(Long id,double longitude, double latitude) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
 		int result = 0;

@@ -2,11 +2,16 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
 var latLang;
+var sendLat;
+var sendLongi;
 var start;
 
-function getLocation() {
+function getLocation(sendPosition) {
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(setLatLang);
+		if(!sendPosition)
+			navigator.geolocation.getCurrentPosition(setLatLang);
+		else
+			navigator.geolocation.getCurrentPosition(getLatLang);
 	} else {
 		x.innerHTML = "Geolocation is not supported by this browser.";
 	}
@@ -33,6 +38,22 @@ function setLatLang(position) {
 	});
 }
 
+function getLatLang(position) {
+	sendLat = position.coords.latitude;
+	sendLongi = position.coords.longitude;
+    $.ajax({  
+	     type : "Post",   
+	     url : "deliveryLatLong.html",   
+	     data : "lat="  + sendLat+"&long="+sendLongi,  
+	     success : function(response) {  
+	     },  
+	     error : function(e) {  
+	      alert('Error: ' + e);   
+	     }  
+	    });  
+}
+
+
 function initialize() {
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	var chicago = new google.maps.LatLng(0,0);
@@ -42,7 +63,7 @@ function initialize() {
 	}
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 	directionsDisplay.setMap(map);
-	getLocation();
+	getLocation(false);
 }
 function calcRoute() {
 	var end = document.getElementById('end').value;
@@ -74,7 +95,7 @@ $(document).ready(function() {
 		    	 $("#orderDetail").append(splittedResult[1]);
 		    	 $("#orderPizza").empty();
 		    	 $("#orderPizza").append(splittedResult[2]);
-		    	 getLocation();
+		    	 getLocation(false);
 		     },  
 		     error : function(e) {  
 		      alert('Error: ' + e);   
@@ -99,4 +120,8 @@ $(document).ready(function() {
 		    });  
 		
 	});
+	
+	setInterval(function(){ 
+		getLocation(true);
+	 }, 2000);
 });

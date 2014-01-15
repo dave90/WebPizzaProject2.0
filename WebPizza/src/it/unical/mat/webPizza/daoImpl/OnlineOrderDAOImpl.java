@@ -152,7 +152,6 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 			OnlineOrder order=(OnlineOrder) session.get(OnlineOrder.class, idOrder);
 			
 			if(order.getDeliveryman()!=null )
-				if(order.getDeliveryman().getLatitude()!=null && order.getDeliveryman().getLongitude()!=null)
 					result=order.getDeliveryman().getLatitude()+";"+order.getDeliveryman().getLongitude();
 			
 			transaction.commit();
