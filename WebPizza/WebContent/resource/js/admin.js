@@ -23,7 +23,9 @@
 				     data : "Discount="+currentVal+"&send="+send+"&Name="+name,  
 				     success : function(response) { 
 				    	 if(response != "OK")
-				    		 alert(response);
+				    		 $("#resultAdding").html("<strong style='color: red;'>Pizza not added</strong>");
+				    	 else
+				    		 $("#resultAdding").html("<strong style='color: green;'>Pizza added</strong>");
 				     },  
 				     error : function(e) {  
 				      alert('Error: ' + e);   

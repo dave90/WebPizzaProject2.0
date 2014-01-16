@@ -377,8 +377,11 @@ public class AccountController {
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		Long id=orderManager.insertOrder(dateFormat.format(date),pizza, paymentMethod.equals("Credit Card"), client, address);
-		/*TODO cambiare*/
+		Long id;
+		if(address!=null)
+			id=orderManager.insertOrder(dateFormat.format(date),pizza, paymentMethod.equals("Credit Card"), client, address);
+		else
+			id=orderManager.insertOrder(dateFormat.format(date),pizza, paymentMethod.equals("Credit Card"), client);
 	
 		if(id==null){	
 			model.addAttribute("errorMessage", errorMessage);

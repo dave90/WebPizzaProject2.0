@@ -8,6 +8,7 @@ import it.unical.mat.webPizza.domain.Deliveryman;
 import it.unical.mat.webPizza.domain.OnlineOrder;
 import it.unical.mat.webPizza.domain.Order;
 import it.unical.mat.webPizza.service.AccessManager;
+import it.unical.mat.webPizza.service.MangeBalanceDeliveryman;
 import it.unical.mat.webPizza.service.OrderManager;
 import it.unical.mat.webPizza.util.MD5Java;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @SessionAttributes({"deliveryman","ordersManager"})
@@ -58,6 +60,15 @@ public class DeliverymanController {
 		}
 		
 		return "redirect:accountDeliveryman.html";
+	}
+	
+	@RequestMapping(value = "/deliverymanLogout", method = RequestMethod.GET)
+	public String deliverymanLogout(@RequestParam(value="idDeliveryman") Long id,
+										Model model,SessionStatus sessionStatus) {
+		if(model.containsAttribute("deliveryman")){			
+			sessionStatus.setComplete();
+		}
+		return "redirect:index.html";
 	}
 	
 	@RequestMapping(value = "/accountDeliveryman", method = RequestMethod.GET)
@@ -143,8 +154,11 @@ public class DeliverymanController {
 				return "sTATUS WRONG";	
 			
 			
-			if(orderManager.updateDeliveryStatus(id, deliveryStatus))
+			if(orderManager.updateDeliveryStatus(id, deliveryStatus)){
+				DeliverymanTourManager manager= (DeliverymanTourManager) model.asMap().get("ordersManager");
+				manager.setStatusOrder(id, status);
 				return status;
+			}
 			
 			return "Status not changed";
 		}

@@ -19,8 +19,8 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<bean id="ShoppingCart" class="it.unical.mat.webPizza.controller.ShoppingCart" />
 	<bean id="ClientDAO" class="it.unical.mat.webPizza.daoImpl.ClientDAOImpl" />
+	<bean id="ShoppingCart" class="it.unical.mat.webPizza.controller.ShoppingCart" />
 	<bean id="AdminDAO" class="it.unical.mat.webPizza.daoImpl.AdminDAOImpl" />
 	<bean id="PizzaChefDAO" class="it.unical.mat.webPizza.daoImpl.PizzaChefDAOImpl" />
 	<bean id="DeliverymanDAO" class="it.unical.mat.webPizza.daoImpl.DeliverymanDAOImpl" />
@@ -28,13 +28,14 @@
 	<bean id="OnlineOrderDAO" class="it.unical.mat.webPizza.daoImpl.OnlineOrderDAOImpl" />
 	<bean id="PizzaDAO" class="it.unical.mat.webPizza.daoImpl.PizzaDAOImpl" />
 	<bean id="PizzaIngredientsDAO" class="it.unical.mat.webPizza.daoImpl.PizzaIngredientsDAOImpl" />
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:maxUploadSize="500000"/>
 
 
 	   <!-- bean definition & AOP specific configuration -->
 		<aop:aspectj-autoproxy />
 	<bean id="manageBalanceChef" class="it.unical.mat.webPizza.service.ManageBalanceChef" />
-		<!-- Aspect -->
-   <!-- <bean id="manageBalanceChef" class="it.unical.mat.webPizza.service.ManageBalanceChef" /> -->
+	<bean id="manageBalanceDeliveryman" class="it.unical.mat.webPizza.service.MangeBalanceDeliveryman"  /> 
    
 <!--    <aop:config>
   	 <aop:aspect id="addChecfLogin" ref="manageBalanceChef">

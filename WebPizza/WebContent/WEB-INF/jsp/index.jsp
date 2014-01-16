@@ -190,12 +190,7 @@
                   <div class="row">
                      <div class="col-md-12">
                         <div class="my_carousel">
-                        
-                           <div class="carousel_nav pull-right">
-                               <!-- Carousel navigation -->
-                               <a class="prev" id="car_prev" href="#"><i class="icon-chevron-left"></i></a>
-                               <a class="next" id="car_next" href="#"><i class="icon-chevron-right"></i></a>
-                           </div>
+
                           
                            <ul id="carousel_container">
                               <!-- Carousel item -->
@@ -209,8 +204,7 @@
 											<c:out value="${ingredient.name} " />
 										</c:forEach>
 									  </p>                                   
-                                    <a href="#" class="btn btn-info btn-sm"><i class="icon-shopping-cart"></i>&euro; ${userP.prize}</a>
-                                 </div>
+                                </div>
                               </li>
                               </c:forEach>
 
