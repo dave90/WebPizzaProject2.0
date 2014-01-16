@@ -19,5 +19,6 @@ public interface OrderDAO {
 	public List<Order> getNotChefAssignedOrder();
 	public List<Order> getAllOrderOfCLient(Long idCLient);
 	public Order getOrder(Long id);
+	public List<Order> getPizzaChefOrder(Long id);
 	
 }

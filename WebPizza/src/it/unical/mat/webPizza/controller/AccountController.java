@@ -11,6 +11,8 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
+import it.unical.mat.webPizza.dao.PizzaChefDAO;
+import it.unical.mat.webPizza.daoImpl.PizzaChefDAOImpl;
 import it.unical.mat.webPizza.domain.Client;
 import it.unical.mat.webPizza.domain.OnlineOrder;
 import it.unical.mat.webPizza.domain.Order;
@@ -18,6 +20,7 @@ import it.unical.mat.webPizza.domain.Pizza;
 import it.unical.mat.webPizza.domain.PizzaIngredients;
 import it.unical.mat.webPizza.domain.PizzaQuantity;
 import it.unical.mat.webPizza.service.AccessManager;
+import it.unical.mat.webPizza.service.ManageBalanceChef;
 import it.unical.mat.webPizza.service.OrderManager;
 import it.unical.mat.webPizza.util.MD5Java;
 
@@ -33,6 +36,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+import com.sun.xml.internal.bind.v2.TODO;
 
 @Controller
 @SessionAttributes({"client","cart"})
@@ -374,6 +378,8 @@ public class AccountController {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		Long id=orderManager.insertOrder(dateFormat.format(date),pizza, paymentMethod.equals("Credit Card"), client, address);
+		/*TODO cambiare*/
+	
 		if(id==null){	
 			model.addAttribute("errorMessage", errorMessage);
 			return "checkout";

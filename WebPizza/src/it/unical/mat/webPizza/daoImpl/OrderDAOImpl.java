@@ -15,6 +15,7 @@ import org.hibernate.Transaction;
 import it.unical.mat.webPizza.dao.OrderDAO;
 import it.unical.mat.webPizza.domain.Administrator;
 import it.unical.mat.webPizza.domain.Client;
+import it.unical.mat.webPizza.domain.OnlineOrder;
 import it.unical.mat.webPizza.domain.Order;
 import it.unical.mat.webPizza.domain.Pizza;
 import it.unical.mat.webPizza.domain.PizzaChef;
@@ -90,7 +91,7 @@ public class OrderDAOImpl implements OrderDAO {
 			
 			Order order=(Order) session.get(Order.class, id);
 			order.setStatus(status);
-			
+			System.out.println(" status "+ status); /*TODO togliere*/
 			session.update(order);
 			result=1;
 			transaction.commit();
@@ -225,6 +226,33 @@ public class OrderDAOImpl implements OrderDAO {
 			session.close();
 		}
 		return order;
+	}
+	
+	@Override
+	public List<Order> getPizzaChefOrder(Long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+		List<Order> result = new ArrayList<Order>();
+		try {
+			transaction = session.beginTransaction();
+			
+			Query query=session.createQuery("FROM Order WHERE pizzaiolo.id=:id and not(status=:status1)");
+			query.setParameter("id", id);
+			query.setParameter("status1", "Ready");
+//			query.setParameter("status2", "Prepared");
+//			and (status=:status1 or status=:status2)
+			result=query.list();
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			session.close();
+		}
+		
+		return result;
+		
 	}
 
 }

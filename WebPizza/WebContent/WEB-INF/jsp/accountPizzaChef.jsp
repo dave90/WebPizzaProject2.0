@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="count" value="0" scope="page" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,62 +59,65 @@
 	<!-- Page title -->
 
 
-		<div class="container">
+	<div class="container">
 
-			<div class="row">
-				<div class="col-md-8 ">
-				<div>Ordine N.</div>
-					<table class="table table-striped table-condensed">
+		<div class="row">
+			<div class="col-md-8 col-md-push-4 ">
+			 <% response.addHeader("Refresh","10"); %> 
+					<c:forEach items="${orders}" var="order">
+					<div id="div-${order.id }">
+						Ordine N. ${order.id }
+						<table id="table-Order"
+							class="table table-striped table-condensed">
 
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Quantity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr id="tr-103">
-								<td>Quattrostagioni</td>
-								<td>
-									2
-								</td>
-							</tr>
-							<tr>
-								<th></th>
-								<th><button id="update-102" class="btn btn-info pull-right"
-										type="button">Ready</button></th>
-							</tr>
-						</tbody>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Quantity</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${order.pizzas}" var="pizza">
+									<tr id="tr-${pizza.id}">
+										<td>${pizza.pizza.name}</td>
+										<td>${pizza.quantity}</td>
+									</tr>
+								</c:forEach>
+								<tr>
+									<th></th>
+									<th><button id="ready-${order.id}"
+											class="btn btn-info pull-right readyButton" type="button">Ready</button></th>
+								</tr>
+							</tbody>
+						</table>
+						<div class="sep-bor"></div>
+					</div>
+				</c:forEach>
+			</div>
 
-					</table>
-					<div class="sep-bor"></div>
-				<div>Ordine N.</div>
-					<table class="table table-striped">
+			<div class="col-md-4 col-md-pull-8">
+				<!-- <div>Ready Orders</div>
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr>
+							<th>Number</th>
+						</tr>
+					</thead>
 
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Quantity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr id="tr-102">
-								<td>Calabrese</td>
-								<td>
-									<div>2</div>
-								</td>
-							</tr>
-							<tr>
-								<th></th>
-								<th><button id="update-102" class="btn btn-info pull-right"
-										type="button">Ready</button></th>
-							</tr>
-						</tbody>
-
-					</table>
-				</div>
+					<tbody id="bodyTableReadyOrder">
+					</tbody>
+				</table> -->
+				<div class="sidey">
+						<ul class="nav">
+							<li><a href="index.html"><i class="icon-briefcase"></i>
+									&nbsp;View Ready Order</a>
+						</ul>
+					</div>
+				<div class="sep-bor"></div>
 			</div>
 		</div>
+	</div>
+	</div>
 
 
 
@@ -129,35 +131,36 @@
 
 
 
-		<!-- Footer starts -->
-		<jsp:include page="include/footer.jsp" />
-		<!-- Footer ends -->
+	<!-- Footer starts -->
+	<jsp:include page="include/footer.jsp" />
+	<!-- Footer ends -->
 
-		<!-- Scroll to top -->
-		<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
+	<!-- Scroll to top -->
+	<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
 
-		<!-- Javascript files -->
-		<!-- jQuery -->
-		<script src="resource/js/jquery.js"></script>
-		<!-- Bootstrap JS -->
-		<script src="resource/js/bootstrap.min.js"></script>
-		<!-- Dropdown menu -->
-		<script src="resource/js/ddlevelsmenu.js"></script>
-		<!-- CaroFredSel -->
-		<script src="resource/js/jquery.carouFredSel-6.2.1-packed.js"></script>
-		<!-- Countdown -->
-		<script src="resource/js/jquery.countdown.min.js"></script>
-		<!-- jQuery Navco -->
-		<script src="resource/js/jquery.navgoco.min.js"></script>
-		<!-- Filter for support page -->
-		<script src="resource/js/filter.js"></script>
-		<!-- Respond JS for IE8 -->
-		<script src="resource/js/respond.min.js"></script>
-		<!-- HTML5 Support for IE -->
-		<script src="resource/js/html5shiv.js"></script>
-		<!-- Custom JS -->
-		<script src="resource/js/custom.js"></script>
+	<!-- Javascript files -->
+	<!-- jQuery -->
+	<script src="resource/js/jquery.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="resource/js/bootstrap.min.js"></script>
+	<!-- Dropdown menu -->
+	<script src="resource/js/ddlevelsmenu.js"></script>
+	<!-- CaroFredSel -->
+	<script src="resource/js/jquery.carouFredSel-6.2.1-packed.js"></script>
+	<!-- Countdown -->
+	<script src="resource/js/jquery.countdown.min.js"></script>
+	<!-- jQuery Navco -->
+	<script src="resource/js/jquery.navgoco.min.js"></script>
+	<!-- Filter for support page -->
+	<script src="resource/js/filter.js"></script>
+	<!-- Respond JS for IE8 -->
+	<script src="resource/js/respond.min.js"></script>
+	<!-- HTML5 Support for IE -->
+	<script src="resource/js/html5shiv.js"></script>
+	<!-- Custom JS -->
+	<script src="resource/js/custom.js"></script>
+	<script src="resource/js/managerPizzaChef.js"></script>
 
-		<script src="resource/js/cartManager.js"></script>
+	<script src="resource/js/cartManager.js"></script>
 </body>
 </html>
