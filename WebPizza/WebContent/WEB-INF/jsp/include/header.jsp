@@ -50,12 +50,15 @@
 					<c:choose>
   						<c:when test="${client.username != null}"><a href='login.html'><c:out value="${client.username}"/></a></c:when>
   						<c:when test="${admin.username != null}"><a href="accountAdmin.html"><c:out value="${admin.username}"/></a></c:when>
+  						<c:when test="${deliveryman.username != null}"><a href="accountDeliveryman.html"><c:out value="${deliveryman.username}"/></a></c:when>
   						
 					    <c:otherwise><a href='login.html'><c:out value="login"/></a></c:otherwise>
 					</c:choose>                  	
 					<c:choose>
   						<c:when test="${client.username != null}"><a href="register.html"><c:out value="logout"/></a></c:when>
   						<c:when test="${admin.username != null}"><a href="adminLogout.html"><c:out value="logout"/></a></c:when>
+  						<c:when test="${deliveryman.username != null}"><a href="deliverymanLogout.html?idDeliveryman=${deliveryman.id}"><c:out value="logout"/></a></c:when>
+  						
 					    <c:otherwise><a href="register.html"><c:out value="signup"/></a></c:otherwise>
 					</c:choose>  
 

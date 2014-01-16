@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+
 <c:set var="count" value="0" scope="page" />
 <!DOCTYPE html>
 <html>
@@ -66,6 +68,7 @@
 			<div class="row">
 				<div class="col-md-9 col-md-push-1">
 					<div class="row">
+						<div class="col-md-8 col-md-push-3" id="resultAdding">${resultAdding}</div>
 						<div class="col-md-8 col-md-push-3">Click on the Ingridients
 							"Our Ingridients" to add to your pizza</div>
 					</div>
@@ -73,8 +76,24 @@
 						<div class="col-md-8 col-md-push-3">Click on the Ingridients
 							"Your Pizza" to delete</div>
 					</div>
-	    			<div class="row">
-						<div class="col-md-8 col-md-push-3"><input id="NamePizza"  class="form-control" placeholder="Name of the Pizza"/></div>
+					<div class="row">
+						<div class="col-md-8 col-md-push-3">Upload file pizza of a name or replace it</div>
+					</div>
+					<div class="row ">
+						<div class="col-md-12 col-md-push-3">
+						<form action="uploadImage.html" method="POST" enctype="multipart/form-data">
+							<table>
+								<tr>
+									<td><input id="NamePizza" name="NamePizza" class="form-control" placeholder="Name of the Pizza"/></td>
+								</tr>	
+								<tr>
+									<th><label for="image">Profileimage (only png): </label></th>
+									<td><input name="image" type="file"/>
+									<td><input class="btn btn-primary" name="send" type="submit" value="Upload image" /></td>
+								</tr>
+							</table>
+						</form>
+						</div>
 					</div>
 					<hr />
 					<div class="row">

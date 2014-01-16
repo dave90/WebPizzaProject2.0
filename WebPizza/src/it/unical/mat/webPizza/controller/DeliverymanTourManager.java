@@ -28,6 +28,14 @@ public class DeliverymanTourManager {
 	public void setOrders(List<OnlineOrder> orders) {
 		this.orders = orders;
 	}
+	
+	public void setStatusOrder(Long id,String status){
+		for(OnlineOrder o:orders)
+			if(o.getId()==id){
+				o.setDeliveryStatus(status);
+				return;
+			}
+	}
 
 	public List<Long> getIds() {
 		List<Long> ids=new ArrayList<Long>();

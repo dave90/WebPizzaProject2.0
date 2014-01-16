@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import it.unical.mat.webPizza.dao.DeliverymanDAO;
 import it.unical.mat.webPizza.domain.Administrator;
 import it.unical.mat.webPizza.domain.Deliveryman;
+import it.unical.mat.webPizza.domain.OnlineOrder;
 import it.unical.mat.webPizza.util.HibernateUtil;
 
 public class DeliverymanDAOImpl implements DeliverymanDAO {
@@ -134,6 +135,29 @@ public class DeliverymanDAOImpl implements DeliverymanDAO {
 			session.close();
 		}
 		return latLong;
+	}
+
+	@Override
+	public boolean isFreeDeliveryman(Long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+		boolean free = true;
+		try {
+			transaction = session.beginTransaction();
+			
+			Query query=session.createQuery("FROM OnlineOrder WHERE deliveryman.id=:id AND ( deliveryStatus='"+OnlineOrder.D_NOT_DELIVERY+"' OR deliveryStatus='"+OnlineOrder.D_SUSPENDED+"')");
+			query.setParameter("id", id);
+			if(query.list().size()>0)
+				free=false;
+
+			transaction.commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			session.close();
+		}
+		return free;
 	}
 	
 

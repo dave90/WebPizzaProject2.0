@@ -173,7 +173,7 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 		try {
 			transaction = session.beginTransaction();
 			
-			Query query=session.createQuery("FROM OnlineOrder WHERE deliveryman.id=:id");
+			Query query=session.createQuery("FROM OnlineOrder WHERE deliveryman.id=:id AND ( deliveryStatus='"+OnlineOrder.D_NOT_DELIVERY+"' OR deliveryStatus='"+OnlineOrder.D_SUSPENDED+"')");
 			query.setParameter("id", id);
 			result=query.list();
 			

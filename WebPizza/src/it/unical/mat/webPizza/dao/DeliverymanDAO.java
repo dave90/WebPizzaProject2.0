@@ -9,6 +9,6 @@ public interface DeliverymanDAO {
 	public Deliveryman getDeliveryman(String usr,String hpwd);
 	public int updateLatLong(Long id,double longitude,double latitude);
 	public String getLatLong(Long id);
-	
+	public boolean isFreeDeliveryman(Long id);
 
 }
