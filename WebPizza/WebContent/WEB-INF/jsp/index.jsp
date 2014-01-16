@@ -62,7 +62,7 @@
              <div class="item active animated fadeInRight">
                <img src="resource/img/pizza/real-pizza2.jpg" alt="" class="img-responsive" />
                <div class="carousel-caption">
-                 <h2 class="animated fadeInLeftBig"><strong  style="color:#6AF985"> Order your Pizza</strong></h2>
+                 <h2 class="animated fadeInLeftBig"><strong > Order your Pizza</strong></h2>
                  <p class="animated fadeInRightBig" style="color: white;">Choose between our pizza or <strong>build</strong> your own pizza.</p>
                  <a href="pizzaList.html" class="animated fadeInLeftBig btn btn-info btn-lg">Choose now</a>
                </div>
@@ -71,7 +71,7 @@
              <div class="item animated fadeInRight">
                <img src="resource/img/pizza/pizza-deliverymanr.jpg" alt="" class="img-responsive" />
                <div class="carousel-caption">
-                 <h2 class="animated fadeInLeftBig"><strong style="color:#6AF985" >Delivery Service</strong></h2>
+                 <h2 class="animated fadeInLeftBig"><strong>Delivery Service</strong></h2>
                  <p class="animated fadeInRightBig" style="color:#41C85A"> Track your pizza and pay on-line. </p>
                  <a href="pizzaList.html" class="animated fadeInLeftBig btn btn-info btn-lg">Orde now</a>
                </div>

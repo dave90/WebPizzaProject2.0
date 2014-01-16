@@ -62,7 +62,7 @@ public class ChefController {
 			@RequestParam(value = "Password") String pwd, Model model) {
 
 		String hpwd = MD5Java.md5Java(pwd);
-		PizzaChef chef = accessManager.getPizzaChef(usr, pwd);
+		PizzaChef chef = accessManager.getPizzaChef(usr, hpwd);
 
 		if (chef == null) {
 			model.addAttribute("notifyLog", "Error : User or password wrong");
@@ -83,7 +83,7 @@ public class ChefController {
 		if (model.containsAttribute("chef")) {
 			Long id = ((PizzaChef) model.asMap().get("chef")).getId();
 			// List<Order> orders=orderManager.getAllNotAssignedChefOrder();
-			List<Order> orders = orderManager.getPizzaChefOrder(new Long(1));
+			List<Order> orders = orderManager.getPizzaChefOrder(id);
 			System.out.println(orders);
 			model.addAttribute("orders", orders);
 

@@ -7,9 +7,7 @@
 			     url : "updateReadyOrder.html",   
 			     data : "idOrder="  + id,  
 			     success : function(response) {
-		    	 		alert("Entro");
 			    	 	if(response == "OK"){
-			    	 		alert("OK");
 			    	 		$("#div-"+id).remove();
 //			    	 		$("#bodyTableReadyOrder").append("<tr ><td>"+id+"</td></tr>");
 //			    	 		quando ritotrna in questa pagina la tebella è vuota come comportarsi?
