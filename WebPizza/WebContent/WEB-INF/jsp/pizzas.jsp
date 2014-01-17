@@ -146,7 +146,7 @@
 						<ul class="nav">
 							<li><a href="index.html"><i class="icon-home"></i>
 									&nbsp;Home</a>
-							<li><a href="#"><i class="icon-mobile-phone"></i>
+							<li><a href="pizzaList.html"><i class="icon-mobile-phone"></i>
 									&nbsp;Our menu</a></li>
 							<li><a href="buildPizza.html"><i class="icon-lightbulb"></i>
 									&nbsp;Build your pizza</a></li>

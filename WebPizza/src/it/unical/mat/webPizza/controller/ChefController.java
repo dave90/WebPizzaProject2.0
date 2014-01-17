@@ -69,7 +69,6 @@ public class ChefController {
 			model.addAttribute("img",
 					"resource/img/clients/woman-eating-pizza.jpg");
 			model.addAttribute("actionUrl", "chefLogIn.html");
-			System.out.println("null " + usr + " " + hpwd);
 			return "redirect:chefLogin.html";
 		} else {
 			model.addAttribute("chef", chef);
@@ -84,7 +83,6 @@ public class ChefController {
 			Long id = ((PizzaChef) model.asMap().get("chef")).getId();
 			// List<Order> orders=orderManager.getAllNotAssignedChefOrder();
 			List<Order> orders = orderManager.getPizzaChefOrder(id);
-			System.out.println(orders);
 			model.addAttribute("orders", orders);
 
 			return "accountPizzaChef";
