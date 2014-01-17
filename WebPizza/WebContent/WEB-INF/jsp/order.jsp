@@ -101,7 +101,7 @@
             	</div>
              </c:if>
               
-                 
+              <hr/>
              <h4>Pizza:</h4>
 
               <table class="table table-striped">

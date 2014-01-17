@@ -120,8 +120,11 @@ public class RandomGen {
 		
 		new AdminDAOImpl().insertAdmin("admin", "admin", "admin", "81dc9bdb52d04dc20036dbd8313ed055");
 		new PizzaChefDAOImpl().insertPizzaChef("carmelo", "lagamba", "melo", "81dc9bdb52d04dc20036dbd8313ed055");
-		new DeliverymanDAOImpl().insertDeliveryman("mario", "alviano", "mario", "3243145", "81dc9bdb52d04dc20036dbd8313ed055");
+		new DeliverymanDAOImpl().insertDeliveryman("davide", "fusca", "mario", "3243145", "81dc9bdb52d04dc20036dbd8313ed055");
 		new PizzaChefDAOImpl().insertPizzaChef("giovanni", "ianni", "gianni", "81dc9bdb52d04dc20036dbd8313ed055");
+		new DeliverymanDAOImpl().insertDeliveryman("francesco", "calimeri", "cali", "3243145", "81dc9bdb52d04dc20036dbd8313ed055");
+		new PizzaChefDAOImpl().insertPizzaChef("maurizio", "macri", "zzmauri", "81dc9bdb52d04dc20036dbd8313ed055");
+		
 		
 	}
 	

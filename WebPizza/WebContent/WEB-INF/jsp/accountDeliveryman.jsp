@@ -236,8 +236,9 @@
 
 			directionsDisplay.setMap(map);
 		}
-
-		google.maps.event.addDomListener(window, 'load', initialize);
+		
+		if($(".orderAddress").size()>0)
+			google.maps.event.addDomListener(window, 'load', initialize);
 	</script>
 
 </body>

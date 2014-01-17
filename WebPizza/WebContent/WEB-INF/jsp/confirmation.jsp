@@ -45,10 +45,10 @@
       <!-- Page title -->
       <div class="page-title">
          <div class="container">
-            <h2><i class="icon-shopping-cart color"></i> We received payment Successfully...</h2>
+            <h2><i class="icon-shopping-cart color"></i> We received your order Successfully...</h2>
             <hr />
             <h5>Thanks for buying !!!</h5>
-            <h5>Your Order #id is <span class="color">${idOrder}</span>. Use this for further communication.</h5>
+            <h5>Your Order #id is <a href="order.html?idOrder=${idOrder}"><span class="color">${idOrder}</span></a>. Use this for further communication.</h5>
             <div class="sep-bor"></div>
 
 

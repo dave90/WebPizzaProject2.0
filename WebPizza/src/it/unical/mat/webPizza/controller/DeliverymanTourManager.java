@@ -25,6 +25,7 @@ public class DeliverymanTourManager {
 	
 	private void order(){
 		URL url;
+		//TO-DO start on the real position of the pizzeria
 		String start="Cosenza+Unical";
 		try {
 			String urlString="http://maps.googleapis.com/maps/api/directions/json?origin="+start+"&destination="+start+"&waypoints=optimize:true";
@@ -59,7 +60,7 @@ public class DeliverymanTourManager {
 			if(ordersOrdered.size()==orders.size())
 				orders=new ArrayList<OnlineOrder>(ordersOrdered);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("Error ordering list parsering google");
 		}
 
 	}
