@@ -133,8 +133,6 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 		PizzaIngredients result = new PizzaIngredients();
 		try {
 			transaction = session.beginTransaction();
-			
-			System.out.println(id);
 			result= (PizzaIngredients) session.createQuery("FROM PizzaIngredients WHERE id=?").setLong(0, id).uniqueResult();
 			
 			transaction.commit();

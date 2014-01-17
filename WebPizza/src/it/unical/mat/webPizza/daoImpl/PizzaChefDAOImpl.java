@@ -77,7 +77,6 @@ public class PizzaChefDAOImpl implements PizzaChefDAO {
 			query.setParameter("usr", usr);
 			query.setParameter("hpwd", hpwd);
 			List<PizzaChef> list=query.list();
-			System.out.println("list.size() "+list.size());
 			if(list.size()==1)
 				chef=list.get(0);
 

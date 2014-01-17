@@ -33,9 +33,9 @@ public class ManageBalanceChef {
 			if (!present((PizzaChef) chef))
 				chefs.add((PizzaChef) chef);
 			manage();
-			System.out.println("insert is running!");
-			System.out.println("size " + chefs.size());
-			System.out.println("******");
+//			System.out.println("insert is running!");
+//			System.out.println("size " + chefs.size());
+//			System.out.println("******");
 		}
 	}
 
@@ -51,9 +51,9 @@ public class ManageBalanceChef {
 					chefs.remove(chefs.get(i));
 				}
 			}
-			System.out.println("chef.getArgs()[0]	 " + chef.getArgs()[0]);
-			System.out.println("size " + chefs.size());
-			System.out.println("******");
+//			System.out.println("chef.getArgs()[0]	 " + chef.getArgs()[0]);
+//			System.out.println("size " + chefs.size());
+//			System.out.println("******");
 		}
 	}
 
@@ -61,7 +61,7 @@ public class ManageBalanceChef {
 	public void manage() {
 		OrderManager orderManager=new OrderManager();
 		List<Order> orderList = orderManager.getAllNotAssignedChefOrder();
-		System.out.println("orderList.size() "+orderList.size());
+//		System.out.println("orderList.size() "+orderList.size());
 		// creo hashMap del tipo /id Chef /numero totale ordini/
 		for (Order order : orderList) {
 			Map<Long, Integer> totalOrderChefs = new HashMap<Long, Integer>();

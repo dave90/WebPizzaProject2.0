@@ -151,11 +151,10 @@ public class AdminController {
 					remove = true;
 
 				if (remove) {
-					System.out.println("ENTEREDd");
 					orderManager.deletePizzaIngredients(id);
 				} else
 					orderManager.updatePizzaIngredients(id, name, cost);
-				System.out.println("ID " + ingString[0] + " " + "NAME " + ingString[1] + " " + "COST " + ingString[2] + " " + "REMOVE " + ingString[3]);
+//				System.out.println("ID " + ingString[0] + " " + "NAME " + ingString[1] + " " + "COST " + ingString[2] + " " + "REMOVE " + ingString[3]);
 			}
 
 		}

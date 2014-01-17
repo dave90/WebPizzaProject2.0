@@ -91,7 +91,6 @@ public class OrderDAOImpl implements OrderDAO {
 			
 			Order order=(Order) session.get(Order.class, id);
 			order.setStatus(status);
-			System.out.println(" status "+ status); /*TODO togliere*/
 			session.update(order);
 			result=1;
 			transaction.commit();

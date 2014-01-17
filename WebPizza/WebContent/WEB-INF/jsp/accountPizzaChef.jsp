@@ -63,8 +63,13 @@
 
 		<div class="row">
 			<div class="col-md-8 col-md-push-4 ">
-			 <% response.addHeader("Refresh","10"); %> 
-					<c:forEach items="${orders}" var="order">
+				<%
+					response.addHeader("Refresh", "10");
+				%>
+				<c:if test="${empty orders}">
+					<p>No Orders</p>
+				</c:if>
+				<c:forEach items="${orders}" var="order">
 					<div id="div-${order.id }">
 						Ordine N. ${order.id }
 						<table id="table-Order"
@@ -82,6 +87,16 @@
 										<td>${pizza.pizza.name}</td>
 										<td>${pizza.quantity}</td>
 									</tr>
+									<tr>
+										<td>
+										<c:forEach items="${pizza.pizza.ingredients}"
+												var="ingredients">
+											${ingredients.name}
+										</c:forEach>
+										</td>
+										<td>
+										</td>
+									</tr>
 								</c:forEach>
 								<tr>
 									<th></th>
@@ -93,6 +108,7 @@
 						<div class="sep-bor"></div>
 					</div>
 				</c:forEach>
+
 			</div>
 
 			<div class="col-md-4 col-md-pull-8">
@@ -108,11 +124,11 @@
 					</tbody>
 				</table> -->
 				<div class="sidey">
-						<ul class="nav">
-							<li><a href="index.html"><i class="icon-briefcase"></i>
-									&nbsp;View Ready Order</a>
-						</ul>
-					</div>
+					<ul class="nav">
+						<li><a href="index.html"><i class="icon-briefcase"></i>
+								&nbsp;View Ready Order</a>
+					</ul>
+				</div>
 				<div class="sep-bor"></div>
 			</div>
 		</div>
