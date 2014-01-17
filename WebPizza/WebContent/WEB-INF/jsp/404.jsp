@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<!-- Title here -->
-		<title>404 - Olson Kart</title>
+		<title>404</title>
 		<!-- Description, Keywords and Author -->
 		<meta name="description" content="Your description">
 		<meta name="keywords" content="Your,Keywords">

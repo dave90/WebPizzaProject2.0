@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<!-- Title here -->
-		<title>Order History - Olson Kart</title>
+		<title>Order History</title>
 		<!-- Description, Keywords and Author -->
 		<meta name="description" content="Your description">
 		<meta name="keywords" content="Your,Keywords">

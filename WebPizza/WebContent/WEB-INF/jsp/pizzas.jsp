@@ -4,7 +4,7 @@
 <html>
 <head>
 <!-- Title here -->
-<title>Items - Olson Kart</title>
+<title>Items</title>
 <!-- Description, Keywords and Author -->
 <meta name="description" content="Your description">
 <meta name="keywords" content="Your,Keywords">

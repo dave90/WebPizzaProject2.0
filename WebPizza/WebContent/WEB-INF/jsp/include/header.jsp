@@ -1,6 +1,6 @@
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
       <!-- Logo & Navigation starts -->
-      
+      <link rel="shortcut icon" href="resource/img/pizza/webPizza.png">
       <div class="header">
          <div class="container">
             <div class="row">

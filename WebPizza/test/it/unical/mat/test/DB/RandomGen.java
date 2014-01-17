@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import it.unical.mat.webPizza.dao.OnlineOrderDAO;
 import it.unical.mat.webPizza.dao.PizzaDAO;
 import it.unical.mat.webPizza.daoImpl.AdminDAOImpl;
+import it.unical.mat.webPizza.daoImpl.ClientDAOImpl;
 import it.unical.mat.webPizza.daoImpl.DeliverymanDAOImpl;
 import it.unical.mat.webPizza.daoImpl.OnlineOrderDAOImpl;
 import it.unical.mat.webPizza.daoImpl.PizzaChefDAOImpl;
@@ -118,6 +119,7 @@ public class RandomGen {
 			pizzas[i].setId(id);
 		}
 		
+		Long id=new ClientDAOImpl().insertClient("Ciccio", "Pasticcio", "ciccio", "32424456", "david@david.com", "81dc9bdb52d04dc20036dbd8313ed055");
 		new AdminDAOImpl().insertAdmin("admin", "admin", "admin", "81dc9bdb52d04dc20036dbd8313ed055");
 		new PizzaChefDAOImpl().insertPizzaChef("carmelo", "lagamba", "melo", "81dc9bdb52d04dc20036dbd8313ed055");
 		new DeliverymanDAOImpl().insertDeliveryman("davide", "fusca", "mario", "3243145", "81dc9bdb52d04dc20036dbd8313ed055");
@@ -125,6 +127,12 @@ public class RandomGen {
 		new DeliverymanDAOImpl().insertDeliveryman("francesco", "calimeri", "cali", "3243145", "81dc9bdb52d04dc20036dbd8313ed055");
 		new PizzaChefDAOImpl().insertPizzaChef("maurizio", "macri", "zzmauri", "81dc9bdb52d04dc20036dbd8313ed055");
 		
+		for(int i=0;i<5;i++){
+			ArrayList<PizzaIngredients> ingredients2 = new ArrayList<PizzaIngredients>();
+			ingredients2.add(ingredients[i%5]);
+			ingredients2.add(ingredients[(i+1)%5]);
+			pizzaDAO.insertPizza("Ciccio Pizza "+i, ingredients2, 0, new ClientDAOImpl().getClient(id));
+		}
 		
 	}
 	
