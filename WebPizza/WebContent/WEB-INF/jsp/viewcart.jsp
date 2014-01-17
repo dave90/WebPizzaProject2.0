@@ -96,7 +96,7 @@
 			              <th></th>
 			              <th></th>
 			              <th>Total</th>
-			              <th id="totalPriceCart">&euro; ${cart.totalprice}</th>
+			              <th id="totalPriceCart2">&euro; ${cart.totalprice}</th>
 			              </tr>
 			              </c:if>
  

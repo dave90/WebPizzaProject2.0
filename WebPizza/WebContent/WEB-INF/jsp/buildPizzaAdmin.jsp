@@ -125,9 +125,11 @@
 					<hr/>
 					<div id="${count}" class="count"></div>
                     <div class="form-group row">
+                      <div class="col-md-4 col-md-push-4">
                       <label for="inputDiscount" class="col-md-2 control-label">Discount</label>
-                      <div class="col-md-4">
+                      <div class="col-md-8 col-md-push-8">
                         <input type="text" class="form-control" id="inputDiscount" name="Discount" placeholder="Discount" />
+                      </div>
                       </div>
                     </div>   			
                     <hr/>

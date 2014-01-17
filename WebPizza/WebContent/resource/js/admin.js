@@ -1,8 +1,18 @@
- $(document).ready(function() {
+
+var oldDiscount=0;
+$(document).ready(function() {
 
 			$("#ingredients").click(function() {
 				chargeIngredients();
 				
+			});
+			
+			$("#inputDiscount").change(function(){
+				var total=$("#totalCost").text();
+				var discount=$("#inputDiscount").val();
+				var newTotal=total-discount+oldDiscount;
+				$("#totalCost").text(newTotal);
+				oldDiscount=parseInt(discount);
 			});
 			
 			
