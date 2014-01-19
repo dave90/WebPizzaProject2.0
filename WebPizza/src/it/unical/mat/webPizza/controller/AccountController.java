@@ -371,7 +371,7 @@ public class AccountController {
 		ArrayList<PizzaQuantity> pizza=new ArrayList<PizzaQuantity>();
 		for(Pizza a:cartPizzas.getPizzaQuantity().keySet()){
 			PizzaQuantity pq=new PizzaQuantity();
-			pq.setPizza(orderManager.getLazyPizza(a.getId()));
+			pq.setPizza(a);
 			pq.setQuantity(cartPizzas.getPizzaQuantity().get(a));
 			pizza.add(pq);
 		}

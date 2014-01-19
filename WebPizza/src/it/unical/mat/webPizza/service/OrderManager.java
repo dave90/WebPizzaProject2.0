@@ -159,9 +159,6 @@ public class OrderManager {
 		return pizzaDAO.getPizza(id);
 	}
 	
-	public Pizza getLazyPizza(Long id){
-		return pizzaDAO.getLazyPizza(id);
-	}
 	
 	public boolean updatePizzaIngredients(Long id,String name,double cost){
 		return ingredientsDAO.updateIngredients(id, name, cost);
@@ -177,14 +174,11 @@ public class OrderManager {
 	
 	public OnlineOrder getOnlineOrder(Long id){
 		OnlineOrder order=onlineOrderDAO.getOnlineOrder(id);
-		if(order!=null)
-			HibernateUtil.getSessionFactory().openSession().update(order);
 		return order;
 	}
 	
 	public Order getOrder(Long id){
 		Order order=orderDAO.getOrder(id);
-		HibernateUtil.getSessionFactory().openSession().update(order);
 		return order;
 	}
 	

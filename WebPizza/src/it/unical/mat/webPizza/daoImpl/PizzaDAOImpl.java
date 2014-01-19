@@ -104,7 +104,7 @@ public class PizzaDAOImpl implements PizzaDAO {
 			transaction = session.beginTransaction();
 			
 			pizza= (Pizza) session.load(Pizza.class, id);
-			
+			pizza.getDiscount();
 			transaction.commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -115,24 +115,5 @@ public class PizzaDAOImpl implements PizzaDAO {
 		return pizza;
 	}
 	
-	@Override
-	public Pizza getLazyPizza(Long id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = null;
-		Pizza pizza = null;
-		try {
-			transaction = session.beginTransaction();
-			
-			pizza= (Pizza) session.load(Pizza.class, id);
-			
-			transaction.commit();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			transaction.rollback();
-		} finally {
-			session.close();
-		}
-		return pizza;
-	}
 
 }

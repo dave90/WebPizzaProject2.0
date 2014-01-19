@@ -54,7 +54,8 @@ public class PizzaChefDAOImpl implements PizzaChefDAO {
 			transaction = session.beginTransaction();
 			
 			chef= (PizzaChef) session.load(PizzaChef.class, id);
-
+			chef.getName();
+			
 			transaction.commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();

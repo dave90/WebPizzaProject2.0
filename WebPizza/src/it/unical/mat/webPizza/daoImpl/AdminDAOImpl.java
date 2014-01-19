@@ -74,6 +74,7 @@ public class AdminDAOImpl implements AdminDAO {
 			transaction = session.beginTransaction();
 			
 			amdin= (Administrator) session.load(Administrator.class, id);
+			amdin.getName();
 
 			transaction.commit();
 		} catch (HibernateException e) {

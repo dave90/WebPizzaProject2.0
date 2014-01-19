@@ -45,9 +45,9 @@ public class TestDAOClientAdminChefDelivery {
 			admis[i].setId(id);
 		}
 		
+		
 		for(int i=0;i<numberInsertion;i++){
 			Administrator dbADmin=adminDAO.getAdmin(admis[i].getId());
-			HibernateUtil.getSessionFactory().openSession().update(dbADmin);
 			assertFalse(!dbADmin.equals(admis[i]));
 		}
 		
@@ -85,7 +85,6 @@ public class TestDAOClientAdminChefDelivery {
 		
 		for(int i=0;i<numberInsertion;i++){
 			Client clientDB=clientDAO.getClient(clients[i].getId());
-			HibernateUtil.getSessionFactory().openSession().update(clientDB);
 			assertFalse(!clientDB.equals(clients[i]));
 		}
 		
@@ -120,8 +119,6 @@ public class TestDAOClientAdminChefDelivery {
 		
 		for(int i=0;i<numberInsertion;i++){
 			Deliveryman clientDB=deliveryDAO.getDeliveryman(deliverys[i].getId());
-			HibernateUtil.getSessionFactory().openSession().update(clientDB);
-
 			assertFalse(!clientDB.equals(deliverys[i]));
 		}
 		
@@ -155,7 +152,7 @@ public class TestDAOClientAdminChefDelivery {
 		
 		for(int i=0;i<numberInsertion;i++){
 			PizzaChef clientDB=chefDAO.getPizzaChef(chefs[i].getId());
-			HibernateUtil.getSessionFactory().openSession().update(clientDB);
+//			HibernateUtil.getSessionFactory().openSession().update(clientDB);
 			assertFalse(!clientDB.equals(chefs[i]));
 		}
 		

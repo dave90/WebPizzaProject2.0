@@ -216,6 +216,7 @@ public class OrderDAOImpl implements OrderDAO {
 			transaction = session.beginTransaction();
 			
 			order= (Order) session.load(Order.class, id);
+			order.getStatus();
 
 			transaction.commit();
 		} catch (HibernateException e) {

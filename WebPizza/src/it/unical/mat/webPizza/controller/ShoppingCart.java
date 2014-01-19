@@ -35,7 +35,6 @@ public class ShoppingCart implements Serializable{
 	}
 	
 	void insertPizza(Long idPizza,Pizza pizzaDB,int quantity){
-		HibernateUtil.getSessionFactory().openSession().update(pizzaDB);
 		Pizza pizza=null;
 		for(Pizza p:pizzaQuantity.keySet()){
 			if(p.getId()==idPizza){

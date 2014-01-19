@@ -13,5 +13,4 @@ public interface PizzaDAO {
 	int deletePizza(Long id);
 	List<Pizza> getAllPizzas();
 	Pizza getPizza(Long id);
-	Pizza getLazyPizza(Long id);
 }
