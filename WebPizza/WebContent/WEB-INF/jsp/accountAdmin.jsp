@@ -65,6 +65,8 @@
                          <li><a href="#" id="ingredients">Ingredients</a></li>
                          <li><a href="buildPizzaAdmin.html">Pizza</a></li>                         
                          <li><a href="adminEditprofile.html">Edit Profile</a></li>
+							<li><a href="addPizzaChef.html">Add Pizza Chef</a></li>
+							<li><a href="addDeliveryMan.html">Add DeliveryMan</a></li>
                      </ul>
                   </div>
                </div>
