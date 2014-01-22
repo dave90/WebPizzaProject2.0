@@ -31,7 +31,7 @@ public class HomeController {
 	@Autowired
 	private OrderManager orderManager;
 	
-	private int displayPizza=8;
+	private int displayPizza=6;
 	private int displayUserPizza=10;
 
 	

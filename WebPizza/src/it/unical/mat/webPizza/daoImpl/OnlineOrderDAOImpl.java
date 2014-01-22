@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -29,11 +30,21 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 		try {
 			transaction = session.beginTransaction();
 			
+			Client clientToInset=(Client) session.get(Client.class, client.getId());
+			List<PizzaQuantity> pizzasToInsert=new ArrayList<PizzaQuantity>();
+			for(PizzaQuantity pq:pizzas){
+				Pizza p=(Pizza) session.get(Pizza.class,pq.getPizza().getId());
+				PizzaQuantity pizzaQuantityToInsert=new PizzaQuantity();
+				pizzaQuantityToInsert.setPizza(p);
+				pizzaQuantityToInsert.setQuantity(pq.getQuantity());
+				pizzasToInsert.add(pizzaQuantityToInsert);
+			}
+			
 			OnlineOrder order=new OnlineOrder();
-			order.setPizzas(pizzas);
+			order.setPizzas(pizzasToInsert);
 			order.setPaid(paid);
 			order.setStatus(status);
-			order.setClient(client);
+			order.setClient(clientToInset);
 			order.setDeliveryStatus(deliveryStatus);
 			order.setAddress(address);
 			order.setDate(date);
@@ -60,7 +71,8 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 			transaction = session.beginTransaction();
 			
 			OnlineOrder order=(OnlineOrder) session.get(OnlineOrder.class, id);
-			order.setDeliveryman(deliveryman);
+			Deliveryman deliverymanToInsert=(Deliveryman) session.get(Deliveryman.class, deliveryman.getId());
+			order.setDeliveryman(deliverymanToInsert);
 			session.update(order);
 			
 			transaction.commit();
@@ -129,7 +141,7 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 		try {
 			transaction = session.beginTransaction();
 			
-			result=session.createQuery("FROM OnlineOrder WHERE deliveryman is null AND status="+Order.S_READY).list();
+			result=session.createQuery("FROM OnlineOrder WHERE deliveryman is null AND status='"+Order.S_READY+"'").list();
 			
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -177,6 +189,13 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 			Query query=session.createQuery("FROM OnlineOrder WHERE deliveryman.id=:id AND ( deliveryStatus='"+OnlineOrder.D_NOT_DELIVERY+"' OR deliveryStatus='"+OnlineOrder.D_SUSPENDED+"')");
 			query.setParameter("id", id);
 			result=query.list();
+			for(OnlineOrder o:result){
+				Hibernate.initialize(o.getPizzas());
+				for(PizzaQuantity p:o.getPizzas()){
+					Hibernate.initialize(p.getPizza());
+					Hibernate.initialize(p.getPizza().getIngredients());
+				}
+			}
 			
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -198,8 +217,14 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 			transaction = session.beginTransaction();
 			Query query=session.createQuery("FROM OnlineOrder WHERE id=:id");
 			query.setParameter("id",id);
-			if(query.list().size()>0)
-				order= (OnlineOrder) query.list().get(0);
+			order=(OnlineOrder) query.uniqueResult();
+			if(order!=null){
+				Hibernate.initialize(order.getPizzas());
+				for(PizzaQuantity p:order.getPizzas()){
+					Hibernate.initialize(p.getPizza());
+					Hibernate.initialize(p.getPizza().getIngredients());
+				}
+			}
 
 			transaction.commit();
 		} catch (HibernateException e) {

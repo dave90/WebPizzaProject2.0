@@ -3,12 +3,14 @@ package it.unical.mat.test.DB;
 import static org.junit.Assert.assertFalse;
 import it.unical.mat.webPizza.dao.OnlineOrderDAO;
 import it.unical.mat.webPizza.dao.PizzaDAO;
+import it.unical.mat.webPizza.dao.PizzaIngredientsDAO;
 import it.unical.mat.webPizza.daoImpl.AdminDAOImpl;
 import it.unical.mat.webPizza.daoImpl.ClientDAOImpl;
 import it.unical.mat.webPizza.daoImpl.DeliverymanDAOImpl;
 import it.unical.mat.webPizza.daoImpl.OnlineOrderDAOImpl;
 import it.unical.mat.webPizza.daoImpl.PizzaChefDAOImpl;
 import it.unical.mat.webPizza.daoImpl.PizzaDAOImpl;
+import it.unical.mat.webPizza.daoImpl.PizzaIngredientsDAOImpl;
 import it.unical.mat.webPizza.domain.Deliveryman;
 import it.unical.mat.webPizza.domain.OnlineOrder;
 import it.unical.mat.webPizza.domain.Pizza;
@@ -30,6 +32,7 @@ public class RandomGen {
 	
 	public static void main(String[] args) {
 		PizzaDAO pizzaDAO = new PizzaDAOImpl();
+		PizzaIngredientsDAO ingredientsDAO=new PizzaIngredientsDAOImpl();
 
 		PizzaIngredients ingredients[] = new PizzaIngredients[6];
 		ingredients[0] = new PizzaIngredients();
@@ -50,6 +53,10 @@ public class RandomGen {
 		ingredients[5] = new PizzaIngredients();
 		ingredients[5].setCost(2);
 		ingredients[5].setName("cipolla");
+		for(PizzaIngredients i:ingredients){
+			Long id=ingredientsDAO.insertIngredient(i.getName(), i.getCost());
+			i.setId(id);
+		}
 
 		int max = 5;
 		Pizza pizzas[] = new Pizza[max];

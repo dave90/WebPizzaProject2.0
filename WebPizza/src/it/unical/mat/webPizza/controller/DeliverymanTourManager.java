@@ -21,7 +21,8 @@ public class DeliverymanTourManager {
 	
 	public DeliverymanTourManager(List<OnlineOrder> orders) {
 		this.orders = orders;
-		order();
+		if(this.orders.size()>1)
+			order();
 	}
 	
 	private void order(){

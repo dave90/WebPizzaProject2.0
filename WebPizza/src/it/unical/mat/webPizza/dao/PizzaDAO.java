@@ -11,6 +11,7 @@ public interface PizzaDAO {
 	
 	Long insertPizza(String name, List<PizzaIngredients> ingredients, double discount,Client client);
 	int deletePizza(Long id);
-	List<Pizza> getAllPizzas();
 	Pizza getPizza(Long id);
+	List<Pizza> getAllClientPizzas();
+	List<Pizza> getAllMenuPizzas();
 }

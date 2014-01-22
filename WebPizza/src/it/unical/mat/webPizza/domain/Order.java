@@ -64,7 +64,7 @@ public class Order implements Comparable<Order>{
 	private String date;
 
 
-	@ManyToMany(fetch=FetchType.EAGER, cascade = { CascadeType.ALL })
+	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "ORDER_PIZZA_QUANTITY", 
 	joinColumns = { @JoinColumn(name = "ORDER_ID") }, 
 	inverseJoinColumns = { @JoinColumn(name = "PIZZA_QUANTITY_ID")})

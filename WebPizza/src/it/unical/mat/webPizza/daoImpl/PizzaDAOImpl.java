@@ -28,11 +28,18 @@ public class PizzaDAOImpl implements PizzaDAO {
 			transaction = session.beginTransaction();
 			
 			Pizza pizza=new Pizza();
+			Client clientToInset=null;
+			if(client!=null)
+			  clientToInset=(Client) session.get(Client.class, client.getId());
+			List<PizzaIngredients> ingredientsToInsert=new ArrayList<PizzaIngredients>();
+			for(PizzaIngredients i:ingredients)
+				ingredientsToInsert.add((PizzaIngredients) session.get(PizzaIngredients.class, i.getId()));
+
 			
 			pizza.setName(name);
 			pizza.setDiscount(discount);
-			pizza.setIngredients(ingredients);
-			pizza.setClient(client);
+			pizza.setIngredients(ingredientsToInsert);
+			pizza.setClient(clientToInset);
 			
 			
 			id = (Long) session.save(pizza);
@@ -76,14 +83,35 @@ public class PizzaDAOImpl implements PizzaDAO {
 	}
 
 	@Override
-	public List<Pizza> getAllPizzas() {
+	public List<Pizza> getAllMenuPizzas() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
 		List<Pizza> result = new ArrayList<Pizza>() ;
 		try {
 			transaction = session.beginTransaction();
 			
-			result=session.createQuery("FROM Pizza").list();
+			result=session.createQuery("FROM Pizza WHERE client is null").list();
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			session.close();
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public List<Pizza> getAllClientPizzas() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+		List<Pizza> result = new ArrayList<Pizza>() ;
+		try {
+			transaction = session.beginTransaction();
+			
+			result=session.createQuery("FROM Pizza WHERE client is not null").list();
 			
 			transaction.commit();
 		} catch (HibernateException e) {

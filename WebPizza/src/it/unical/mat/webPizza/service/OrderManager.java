@@ -63,28 +63,12 @@ public class OrderManager {
 		return false;
 	}
 	
-	public List<Pizza> getAllPizza(){
-		List<Pizza> menuPizza=new ArrayList<Pizza>();
-		List<Pizza> listPizza = pizzaDAO.getAllPizzas();
-
-		for(Pizza p:listPizza){
-			if(p.getClient()==null)
-				menuPizza.add(p);
-		}
-		
-		return menuPizza;
+	public List<Pizza> getAllPizza(){		
+		return pizzaDAO.getAllMenuPizzas();
 	}
 	
 	public List<Pizza> getAllClientPizza(){
-		List<Pizza> menuPizza=new ArrayList<Pizza>();
-		List<Pizza> listPizza = pizzaDAO.getAllPizzas();
-
-		for(Pizza p:listPizza){
-			if(p.getClient()!=null)
-				menuPizza.add(p);
-		}
-		
-		return menuPizza;
+		return pizzaDAO.getAllClientPizzas();
 	}
 	
 	public boolean insertPizza(String name,List<PizzaIngredients> ingredients,double discount){

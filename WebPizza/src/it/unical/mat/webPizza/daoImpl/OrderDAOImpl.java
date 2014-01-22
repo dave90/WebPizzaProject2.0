@@ -33,12 +33,23 @@ public class OrderDAOImpl implements OrderDAO {
 		try {
 			transaction = session.beginTransaction();
 			
+			Client clientToInset=(Client) session.get(Client.class, client.getId());
+			PizzaChef chefToInsert=(PizzaChef) session.get(PizzaChef.class, chef.getId());
+			List<PizzaQuantity> pizzasToInsert=new ArrayList<PizzaQuantity>();
+			for(PizzaQuantity pq:pizzas){
+				Pizza p=(Pizza) session.get(Pizza.class,pq.getPizza().getId());
+				PizzaQuantity pizzaQuantityToInsert=new PizzaQuantity();
+				pizzaQuantityToInsert.setPizza(p);
+				pizzaQuantityToInsert.setQuantity(pq.getQuantity());
+				pizzasToInsert.add(pizzaQuantityToInsert);
+			}
+			
 			Order order=new Order();
-			order.setPizzas(pizzas);
+			order.setPizzas(pizzasToInsert);
 			order.setPaid(paid);
 			order.setStatus(status);
-			order.setClient(client);
-			order.setPizzaiolo(chef);
+			order.setClient(clientToInset);
+			order.setPizzaiolo(chefToInsert);
 			order.setDate(date);
 			
 			id = (Long) session.save(order);
@@ -63,11 +74,22 @@ public class OrderDAOImpl implements OrderDAO {
 		try {
 			transaction = session.beginTransaction();
 			
+			Client clientToInset=(Client) session.get(Client.class, client.getId());
+			List<PizzaQuantity> pizzasToInsert=new ArrayList<PizzaQuantity>();
+			for(PizzaQuantity pq:pizzas){
+				Pizza p=(Pizza) session.get(Pizza.class,pq.getPizza().getId());
+				PizzaQuantity pizzaQuantityToInsert=new PizzaQuantity();
+				pizzaQuantityToInsert.setPizza(p);
+				pizzaQuantityToInsert.setQuantity(pq.getQuantity());
+				pizzasToInsert.add(pizzaQuantityToInsert);
+			}
+			
+			
 			Order order=new Order();
-			order.setPizzas(pizzas);
+			order.setPizzas(pizzasToInsert);
 			order.setPaid(paid);
 			order.setStatus(status);
-			order.setClient(client);
+			order.setClient(clientToInset);
 			order.setDate(date);
 			
 			id = (Long) session.save(order);
@@ -114,8 +136,9 @@ public class OrderDAOImpl implements OrderDAO {
 		try {
 			transaction = session.beginTransaction();
 			
+			PizzaChef chefToInsert=(PizzaChef) session.get(PizzaChef.class, chef.getId());
 			Order order=(Order) session.get(Order.class, id);
-			order.setPizzaiolo(chef);
+			order.setPizzaiolo(chefToInsert);
 			session.update(order);
 			result=1;
 			
@@ -185,13 +208,13 @@ public class OrderDAOImpl implements OrderDAO {
 			query.setParameter("idCLient", idCLient);
 			
 			result=query.list();
-//			for(Order o:result){
-//				Hibernate.initialize(o.getPizzas());
-//				for(PizzaQuantity p:o.getPizzas()){
-//					Hibernate.initialize(p.getPizza());
-//					Hibernate.initialize(p.getPizza().getIngredients());
-//				}
-//			}
+			for(Order o:result){
+				Hibernate.initialize(o.getPizzas());
+				for(PizzaQuantity p:o.getPizzas()){
+					Hibernate.initialize(p.getPizza());
+					Hibernate.initialize(p.getPizza().getIngredients());
+				}
+			}
 			
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -219,6 +242,8 @@ public class OrderDAOImpl implements OrderDAO {
 			
 			order= (Order) session.load(Order.class, id);
 			order.getStatus();
+			Hibernate.initialize(order.getPizzas());
+			
 
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -241,9 +266,15 @@ public class OrderDAOImpl implements OrderDAO {
 			Query query=session.createQuery("FROM Order WHERE pizzaiolo.id=:id and not(status=:status1)");
 			query.setParameter("id", id);
 			query.setParameter("status1", "Ready");
-//			query.setParameter("status2", "Prepared");
-//			and (status=:status1 or status=:status2)
+
 			result=query.list();
+			for(Order o:result){
+				Hibernate.initialize(o.getPizzas());
+				for(PizzaQuantity p:o.getPizzas()){
+					Hibernate.initialize(p.getPizza());
+					Hibernate.initialize(p.getPizza().getIngredients());
+				}
+			}
 			
 			transaction.commit();
 		} catch (HibernateException e) {

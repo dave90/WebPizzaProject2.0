@@ -52,16 +52,6 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 		try {
 			transaction = session.beginTransaction();
 
-			// Query
-			// query=session.createQuery("DELETE FROM PizzaIngredients WHERE id=:id");
-			// query.setParameter("id", id);
-			//
-			// result=query.executeUpdate();
-			// Query
-			// query=session.createSQLQuery("DELETE FROM PIZZA_INGREDIENTS WHERE INGREDIENTS_ID=:id");
-			// query.setParameter("id", id);
-			//
-			// result=query.executeUpdate();
 
 			PizzaIngredients ingredient = (PizzaIngredients) session.load(PizzaIngredients.class, id);
 			if (ingredient != null) {

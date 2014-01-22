@@ -119,7 +119,8 @@ public class TestDAOPizzaIngridientsOrder {
 			pizzas[i].setId(id);
 		}
 
-		List<Pizza> pizzasDB = pizzaDAO.getAllPizzas();
+		List<Pizza> pizzasDB = pizzaDAO.getAllClientPizzas();
+		pizzasDB.addAll(pizzaDAO.getAllMenuPizzas());
 
 		for (int i = 0; i < max; i++) {
 			boolean find = false;
@@ -148,7 +149,7 @@ public class TestDAOPizzaIngridientsOrder {
 			pizzaDAO.deletePizza(pizzas[i].getId());
 		}
 
-		assertFalse(pizzasDB.size() != pizzaDAO.getAllPizzas().size() + max);
+		assertFalse(pizzasDB.size() != pizzaDAO.getAllClientPizzas().size() +pizzaDAO.getAllMenuPizzas().size() + max);
 
 	}
 

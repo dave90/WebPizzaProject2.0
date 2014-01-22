@@ -3,6 +3,7 @@ package it.unical.mat.webPizza.daoImpl;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.LockOptions;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -24,7 +25,7 @@ public class PizzeriaDAOImpl implements PizzeriaDAO {
 		try {
 			transaction = session.beginTransaction();
 
-			PizzeriaInformation pizzeria;
+			PizzeriaInformation pizzeria = null;
 			pizzeria = (PizzeriaInformation) session.createQuery("FROM PizzeriaInformation").uniqueResult();
 			if (pizzeria == null) {
 				pizzeria = new PizzeriaInformation();
