@@ -43,6 +43,7 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			id=null;
 		} finally {
 			session.close();
 		}
@@ -128,7 +129,7 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 		try {
 			transaction = session.beginTransaction();
 			
-			result=session.createQuery("FROM OnlineOrder WHERE deliveryman is null").list();
+			result=session.createQuery("FROM OnlineOrder WHERE deliveryman is null AND status="+Order.S_READY).list();
 			
 			transaction.commit();
 		} catch (HibernateException e) {

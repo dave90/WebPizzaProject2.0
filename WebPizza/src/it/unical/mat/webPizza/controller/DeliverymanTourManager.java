@@ -1,5 +1,6 @@
 package it.unical.mat.webPizza.controller;
 
+import it.unical.mat.webPizza.daoImpl.PizzeriaDAOImpl;
 import it.unical.mat.webPizza.domain.OnlineOrder;
 import it.unical.mat.webPizza.domain.Order;
 import it.unical.mat.webPizza.domain.Pizza;
@@ -26,7 +27,7 @@ public class DeliverymanTourManager {
 	private void order(){
 		URL url;
 		//TO-DO start on the real position of the pizzeria
-		String start="Cosenza+Unical";
+		String start=new PizzeriaDAOImpl().getPizzeriaInformation().getAddressNoSpace();
 		try {
 			String urlString="http://maps.googleapis.com/maps/api/directions/json?origin="+start+"&destination="+start+"&waypoints=optimize:true";
 			for(OnlineOrder o:orders){

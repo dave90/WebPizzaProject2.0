@@ -1,4 +1,8 @@
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ <%@page import="it.unical.mat.webPizza.daoImpl.PizzeriaDAOImpl"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+     <%
+           String nameApp = new PizzeriaDAOImpl().getPizzeriaInformation().getName();
+      %>
       <!-- Logo & Navigation starts -->
       <link rel="shortcut icon" href="resource/img/pizza/webPizza.png">
       <div class="header">
@@ -7,7 +11,7 @@
                <div class="col-md-2 col-sm-2">
                   <!-- Logo -->
                   <div class="logo">
-                     <h1><a href="${pageContext.request.contextPath}">Web Pizza</a></h1>
+                     <h1><a href="${pageContext.request.contextPath}"><%= nameApp %></a></h1>
                   </div>
                </div>
                <div class="col-md-6 col-sm-5">

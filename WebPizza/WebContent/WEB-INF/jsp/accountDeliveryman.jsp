@@ -211,15 +211,14 @@
 			var waypts = [];
 			var address =[];
 			$(".orderAddress").each(function(index, element) {
-			      if(index!=0 && index !=$(".orderAddress").size()-1)
 				  waypts.push({
 			          location:$(this).text(),
 			          stopover:true});
 			      address.push($(this).text());
 
 			});
-			var start=$(".orderAddress").first().text().replace(/ /g,'+');
-			var end=$(".orderAddress").last().text().replace(/ /g,'+');
+			var start=$("#addressPizzeria").text().replace(/ /g,'+');
+			var end=start;
 			var request = {
 				      origin: start,
 				      destination: end,

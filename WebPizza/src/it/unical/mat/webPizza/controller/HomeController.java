@@ -1,5 +1,6 @@
 package it.unical.mat.webPizza.controller;
 
+import it.unical.mat.webPizza.daoImpl.PizzeriaDAOImpl;
 import it.unical.mat.webPizza.domain.Pizza;
 import it.unical.mat.webPizza.service.OrderManager;
 
@@ -9,6 +10,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,11 +55,10 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index( Model model) {
+	public String index( Model model,HttpSession session) {
 		List<Pizza> menuPizza=orderManager.getAllPizza();
 		List<Pizza> userPizza=orderManager.getAllClientPizza();
-		
-		
+				
 		Random r=new Random();
 		while(menuPizza.size()>displayPizza){
 			menuPizza.remove(r.nextInt(menuPizza.size()));

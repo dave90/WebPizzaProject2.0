@@ -7,14 +7,17 @@ import it.unical.mat.webPizza.dao.AdminDAO;
 import it.unical.mat.webPizza.dao.ClientDAO;
 import it.unical.mat.webPizza.dao.DeliverymanDAO;
 import it.unical.mat.webPizza.dao.PizzaChefDAO;
+import it.unical.mat.webPizza.dao.PizzeriaDAO;
 import it.unical.mat.webPizza.daoImpl.AdminDAOImpl;
 import it.unical.mat.webPizza.daoImpl.ClientDAOImpl;
 import it.unical.mat.webPizza.daoImpl.DeliverymanDAOImpl;
 import it.unical.mat.webPizza.daoImpl.PizzaChefDAOImpl;
+import it.unical.mat.webPizza.daoImpl.PizzeriaDAOImpl;
 import it.unical.mat.webPizza.domain.Administrator;
 import it.unical.mat.webPizza.domain.Client;
 import it.unical.mat.webPizza.domain.Deliveryman;
 import it.unical.mat.webPizza.domain.PizzaChef;
+import it.unical.mat.webPizza.domain.PizzeriaInformation;
 
 @Service
 public class AccessManager {
@@ -26,6 +29,8 @@ public class AccessManager {
 	private PizzaChefDAO chefDAO;
 	@Autowired
 	private DeliverymanDAO deliverymanDAO;
+	@Autowired
+	private PizzeriaDAO pizzeriaDAO;
 	
 	public AccessManager() {
 		clientDAO=new ClientDAOImpl();
@@ -89,6 +94,14 @@ public class AccessManager {
 	
 	public boolean setLatLongDeliveryman(Long id,double lat,double longi){
 		return deliverymanDAO.updateLatLong(id, lat, longi)>0;
+	}
+	
+	public PizzeriaInformation getPizzeriaInformation(){
+		return pizzeriaDAO.getPizzeriaInformation();
+	}
+	
+	public void updatePizzeriaInformation(String address,String telephon,String name,String mail){
+		pizzeriaDAO.modifyPizzeria(address, telephon, name, mail);
 	}
 	
 	

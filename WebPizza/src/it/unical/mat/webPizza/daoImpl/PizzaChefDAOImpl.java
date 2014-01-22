@@ -37,6 +37,7 @@ public class PizzaChefDAOImpl implements PizzaChefDAO {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			id=null;
 		} finally {
 			session.close();
 		}
@@ -77,9 +78,7 @@ public class PizzaChefDAOImpl implements PizzaChefDAO {
 			Query query=session.createQuery("FROM PizzaChef WHERE username=:usr AND hashPasswd=:hpwd");
 			query.setParameter("usr", usr);
 			query.setParameter("hpwd", hpwd);
-			List<PizzaChef> list=query.list();
-			if(list.size()==1)
-				chef=list.get(0);
+			chef=(PizzaChef) query.uniqueResult();
 
 			transaction.commit();
 		} catch (HibernateException e) {

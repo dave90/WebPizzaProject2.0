@@ -15,6 +15,7 @@ import it.unical.mat.webPizza.domain.Client;
 import it.unical.mat.webPizza.domain.Order;
 import it.unical.mat.webPizza.domain.Pizza;
 import it.unical.mat.webPizza.domain.PizzaIngredients;
+import it.unical.mat.webPizza.domain.PizzeriaInformation;
 import it.unical.mat.webPizza.service.AccessManager;
 import it.unical.mat.webPizza.service.OrderManager;
 import it.unical.mat.webPizza.util.MD5Java;
@@ -197,6 +198,40 @@ public class AdminController {
 		}
 		orderManager.insertPizza(name, ingredientsPizza, discount);
 		return "OK";
+	}
+	
+
+	@RequestMapping(value = "/editPizzeriaInformation", method = RequestMethod.GET)
+	public String editPizzeria(Model model) {
+		if (!model.containsAttribute("admin"))
+			return "redirect:accountAdmin.html";
+		
+		PizzeriaInformation pizzeria=accessManager.getPizzeriaInformation();
+		model.addAttribute("pizzeria", pizzeria);
+		
+		return "editPizzeriaInformation";
+	}
+	
+	@RequestMapping(value = "/contactus", method = RequestMethod.GET)
+	public String contactus(Model model) {
+		
+		PizzeriaInformation pizzeria=accessManager.getPizzeriaInformation();
+		model.addAttribute("pizzeria", pizzeria);
+		
+		return "contactus";
+	}
+
+	@RequestMapping(value="editPizzeriaInfo",method = RequestMethod.POST)
+	public String editPizzaInfo( @RequestParam("Name") String name,
+								 @RequestParam("Address") String address,
+								 @RequestParam("Mail") String mail,
+								 @RequestParam("Phone") String phone,
+								 Model model,HttpSession session) {
+		if(name!=null && address!=null && mail!=null && phone!=null){
+			accessManager.updatePizzeriaInformation(address, phone, name, mail);
+		}
+		
+		return "redirect:editPizzeriaInformation.html";
 	}
 
 	@RequestMapping(value="uploadImage",method = RequestMethod.POST)

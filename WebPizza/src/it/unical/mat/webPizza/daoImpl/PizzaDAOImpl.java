@@ -41,6 +41,7 @@ public class PizzaDAOImpl implements PizzaDAO {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			id=null;
 		} finally {
 			session.close();
 		}

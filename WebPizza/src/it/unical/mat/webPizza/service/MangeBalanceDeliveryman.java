@@ -115,7 +115,6 @@ class ManageBDeliveryThread extends Thread {
 				List<OnlineOrder> orders = orderDAO.getNotDeliveryManAssignedOrder();
 				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				boolean waitPizza = false;
-				deleteOrderNotReady(orders);
 				System.out.println("ORDERS READY " + orders.size());
 
 				for (OnlineOrder o : orders) {
@@ -194,13 +193,5 @@ class ManageBDeliveryThread extends Thread {
 		}
 	}
 
-	private void deleteOrderNotReady(List<OnlineOrder> orders) {
-		ArrayList<OnlineOrder> orderToDelete = new ArrayList<OnlineOrder>();
-		for (OnlineOrder o : orders)
-			if (o.getStatus() == null || !o.getStatus().equals(Order.S_READY))
-				orderToDelete.add(o);
-
-		orders.removeAll(orderToDelete);
-	}
 
 }

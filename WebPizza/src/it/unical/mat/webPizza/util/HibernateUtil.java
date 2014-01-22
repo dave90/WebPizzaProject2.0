@@ -9,6 +9,7 @@ import it.unical.mat.webPizza.domain.Pizza;
 import it.unical.mat.webPizza.domain.PizzaChef;
 import it.unical.mat.webPizza.domain.PizzaIngredients;
 import it.unical.mat.webPizza.domain.PizzaQuantity;
+import it.unical.mat.webPizza.domain.PizzeriaInformation;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -31,6 +32,7 @@ public class HibernateUtil {
 								.addAnnotatedClass(PizzaIngredients.class)
 								.addAnnotatedClass(OnlineOrder.class)
 								.addAnnotatedClass(PizzaQuantity.class)
+								.addAnnotatedClass(PizzeriaInformation.class)
 //								.addAnnotatedClass(PUT CLASS)
 								.buildSessionFactory();
 

@@ -2,6 +2,7 @@ package it.unical.mat.webPizza.daoImpl;
 
 import it.unical.mat.webPizza.dao.PizzaIngredientsDAO;
 import it.unical.mat.webPizza.domain.Client;
+import it.unical.mat.webPizza.domain.Pizza;
 import it.unical.mat.webPizza.domain.PizzaIngredients;
 import it.unical.mat.webPizza.util.HibernateUtil;
 
@@ -18,28 +19,28 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 
 	@Override
 	public Long insertIngredient(String name, double cost) {
-		
+
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
 		Long id = null;
 		try {
 			transaction = session.beginTransaction();
-			
-			PizzaIngredients ingredients=new PizzaIngredients();
-			
+
+			PizzaIngredients ingredients = new PizzaIngredients();
+
 			ingredients.setName(name);
 			ingredients.setCost(cost);
-			
-			
+
 			id = (Long) session.save(ingredients);
 			transaction.commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			id=null;
 		} finally {
 			session.close();
 		}
-		
+
 		return id;
 	}
 
@@ -47,34 +48,46 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 	public int deleteIngredient(Long id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
-		int result = 0 ;
+		int result = 0;
 		try {
 			transaction = session.beginTransaction();
-			
-//			Query query=session.createQuery("DELETE FROM PizzaIngredients WHERE id=:id");
-//			query.setParameter("id", id);
-//			
-//			result=query.executeUpdate();
-			Query query=session.createSQLQuery("DELETE FROM PIZZA_INGREDIENTS WHERE INGREDIENTS_ID=:id");
-			query.setParameter("id", id);
-			
-			result=query.executeUpdate();
-			
-			PizzaIngredients ingredient= (PizzaIngredients) session.load(PizzaIngredients.class, id);
-			if(ingredient!=null){
+
+			// Query
+			// query=session.createQuery("DELETE FROM PizzaIngredients WHERE id=:id");
+			// query.setParameter("id", id);
+			//
+			// result=query.executeUpdate();
+			// Query
+			// query=session.createSQLQuery("DELETE FROM PIZZA_INGREDIENTS WHERE INGREDIENTS_ID=:id");
+			// query.setParameter("id", id);
+			//
+			// result=query.executeUpdate();
+
+			PizzaIngredients ingredient = (PizzaIngredients) session.load(PizzaIngredients.class, id);
+			if (ingredient != null) {
+				for (Pizza p : ingredient.getPizzas()){
+					for(int i=0;i<p.getIngredients().size();i++)
+						if(p.getIngredients().get(i).getId()==ingredient.getId()){
+							p.getIngredients().remove(i);
+							break;
+						}
+				}
+				ingredient.setPizzas(null);
+
 				session.delete(ingredient);
 				session.flush();
-				result=1;
+				result = 1;
 			}
-			
+
 			transaction.commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			result=0;
 		} finally {
 			session.close();
 		}
-		
+
 		return result;
 	}
 
@@ -82,12 +95,12 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 	public List<PizzaIngredients> getAllIngredients() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
-		List<PizzaIngredients> result = new ArrayList<PizzaIngredients>() ;
+		List<PizzaIngredients> result = new ArrayList<PizzaIngredients>();
 		try {
 			transaction = session.beginTransaction();
-			
-			result=session.createQuery("FROM PizzaIngredients").list();
-			
+
+			result = session.createQuery("FROM PizzaIngredients").list();
+
 			transaction.commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -95,7 +108,7 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 		} finally {
 			session.close();
 		}
-		
+
 		return result;
 	}
 
@@ -106,12 +119,12 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 		boolean result = false;
 		try {
 			transaction = session.beginTransaction();
-			
-			PizzaIngredients ingredient= (PizzaIngredients) session.load(PizzaIngredients.class, id);
-			if(ingredient != null){
+
+			PizzaIngredients ingredient = (PizzaIngredients) session.load(PizzaIngredients.class, id);
+			if (ingredient != null) {
 				ingredient.setCost(cost);
 				ingredient.setName(name);
-				
+
 				session.update(ingredient);
 				result = true;
 			}
@@ -119,7 +132,7 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
-			result=false;
+			result = false;
 		} finally {
 			session.close();
 		}
@@ -133,8 +146,8 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 		PizzaIngredients result = new PizzaIngredients();
 		try {
 			transaction = session.beginTransaction();
-			result= (PizzaIngredients) session.createQuery("FROM PizzaIngredients WHERE id=?").setLong(0, id).uniqueResult();
-			
+			result = (PizzaIngredients) session.createQuery("FROM PizzaIngredients WHERE id=?").setLong(0, id).uniqueResult();
+
 			transaction.commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -142,7 +155,7 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 		} finally {
 			session.close();
 		}
-		
+
 		return result;
 	}
 

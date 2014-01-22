@@ -1,11 +1,14 @@
 package it.unical.mat.webPizza.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +25,9 @@ public class PizzaIngredients implements Serializable{
 	
 	@Column(name="COST")
 	private double cost;
+	
+	@ManyToMany(mappedBy="ingredients")
+	private List<Pizza> pizzas=new ArrayList<Pizza>();
 	
 	public PizzaIngredients() {
 	}
@@ -48,6 +54,14 @@ public class PizzaIngredients implements Serializable{
 
 	public void setCost(double cost) {
 		this.cost = cost;
+	}
+
+	public List<Pizza> getPizzas() {
+		return pizzas;
+	}
+
+	public void setPizzas(List<Pizza> pizzas) {
+		this.pizzas = pizzas;
 	}
 
 	@Override

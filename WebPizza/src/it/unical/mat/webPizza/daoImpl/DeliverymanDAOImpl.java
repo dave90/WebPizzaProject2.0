@@ -39,6 +39,7 @@ public class DeliverymanDAOImpl implements DeliverymanDAO {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			id=null;
 		} finally {
 			session.close();
 		}
@@ -78,9 +79,7 @@ public class DeliverymanDAOImpl implements DeliverymanDAO {
 			Query query=session.createQuery("FROM Deliveryman WHERE username=:usr AND hashPasswd=:hpwd");
 			query.setParameter("usr", usr);
 			query.setParameter("hpwd", hpwd);
-			List<Deliveryman> list=query.list();
-			if(list.size()==1)
-				delivery=list.get(0);
+			delivery=(Deliveryman) query.uniqueResult();
 
 			transaction.commit();
 		} catch (HibernateException e) {

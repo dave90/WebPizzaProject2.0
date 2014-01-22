@@ -63,14 +63,6 @@ public class Order implements Comparable<Order>{
 	@Column(name="DATE")
 	private String date;
 
-	
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
 
 	@ManyToMany(fetch=FetchType.EAGER, cascade = { CascadeType.ALL })
 	@JoinTable(name = "ORDER_PIZZA_QUANTITY", 
@@ -154,6 +146,14 @@ public class Order implements Comparable<Order>{
 			quantity+=pq.getQuantity();
 		return quantity;
 	}
+	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 
 	@Override
 	public int hashCode() {
@@ -163,9 +163,7 @@ public class Order implements Comparable<Order>{
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + (paid ? 1231 : 1237);
-		result = prime * result
-				+ ((pizzaiolo == null) ? 0 : pizzaiolo.hashCode());
-		result = prime * result + ((pizzas == null) ? 0 : pizzas.hashCode());
+		result = prime * result + ((pizzaiolo == null) ? 0 : pizzaiolo.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
@@ -200,11 +198,6 @@ public class Order implements Comparable<Order>{
 			if (other.pizzaiolo != null)
 				return false;
 		} else if (!pizzaiolo.equals(other.pizzaiolo))
-			return false;
-		if (pizzas == null) {
-			if (other.pizzas != null)
-				return false;
-		} else if (!pizzas.containsAll(other.pizzas) || !other.pizzas.containsAll(pizzas))
 			return false;
 		if (status == null) {
 			if (other.status != null)

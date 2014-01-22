@@ -46,6 +46,7 @@ public class OrderDAOImpl implements OrderDAO {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			id=null;
 		} finally {
 			session.close();
 		}
@@ -97,6 +98,7 @@ public class OrderDAOImpl implements OrderDAO {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			result=0;
 		} finally {
 			session.close();
 		}

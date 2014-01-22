@@ -41,6 +41,7 @@ public class ClientDAOImpl implements ClientDAO {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			id=null;
 		} finally {
 			session.close();
 		}
@@ -80,9 +81,7 @@ public class ClientDAOImpl implements ClientDAO {
 			Query query=session.createQuery("FROM Client WHERE username=:usr AND hashPasswd=:hpwd");
 			query.setParameter("usr", usr);
 			query.setParameter("hpwd", hpwd);
-			List<Client> list=query.list();
-			if(list.size()==1)
-				client=list.get(0);
+			client=(Client) query.uniqueResult();
 
 			transaction.commit();
 		} catch (HibernateException e) {

@@ -139,10 +139,6 @@ public class OrderManager {
 		return orderDAO.getNotChefAssignedOrder();
 	}
 	
-	public List<OnlineOrder> getAllNotAssignedDeliveryManOrder(){
-		return onlineOrderDAO.getNotDeliveryManAssignedOrder();
-	}
-	
 	public String getDeliveryStatusOrder(Long idOrder){
 		return onlineOrderDAO.getOrderDeliveryStatus(idOrder);
 	}

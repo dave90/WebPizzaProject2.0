@@ -109,8 +109,6 @@ public class Pizza implements Serializable{
 		temp = Double.doubleToLongBits(discount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((ingredients == null) ? 0 : ingredients.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -129,18 +127,12 @@ public class Pizza implements Serializable{
 				return false;
 		} else if (!client.equals(other.client))
 			return false;
-		if (Double.doubleToLongBits(discount) != Double
-				.doubleToLongBits(other.discount))
+		if (Double.doubleToLongBits(discount) != Double.doubleToLongBits(other.discount))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (ingredients == null) {
-			if (other.ingredients != null)
-				return false;
-		} else if (!ingredients.containsAll(other.ingredients) || !other.ingredients.containsAll(ingredients))
 			return false;
 		if (name == null) {
 			if (other.name != null)
