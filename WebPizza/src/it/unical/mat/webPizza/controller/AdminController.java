@@ -12,8 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import it.unical.mat.webPizza.domain.Administrator;
 import it.unical.mat.webPizza.domain.Client;
+import it.unical.mat.webPizza.domain.Deliveryman;
 import it.unical.mat.webPizza.domain.Order;
 import it.unical.mat.webPizza.domain.Pizza;
+import it.unical.mat.webPizza.domain.PizzaChef;
 import it.unical.mat.webPizza.domain.PizzaIngredients;
 import it.unical.mat.webPizza.service.AccessManager;
 import it.unical.mat.webPizza.service.OrderManager;
@@ -35,6 +37,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sun.image.codec.jpeg.ImageFormatException;
 
@@ -60,7 +63,9 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/adminLogIn", method = RequestMethod.POST)
-	public String adminLogInValidation(@RequestParam(value = "User") String usr, @RequestParam(value = "Password") String pwd, Model model) {
+	public String adminLogInValidation(
+			@RequestParam(value = "User") String usr,
+			@RequestParam(value = "Password") String pwd, Model model) {
 
 		String hpwd = MD5Java.md5Java(pwd);
 
@@ -100,10 +105,28 @@ public class AdminController {
 
 		String ingredientsString = "<table class='table table-striped' id='ingredientsTable'>";
 		ingredientsString += "<thead><tr><th>Id</th><th>Name</th><th>Cost</th><th>Delete</th></tr></thead>";
-		ingredientsString += "<tr>" + "<td><input class='btn btn-info' type='button' value='Add' onClick='addIngredients();' /></td>" + "<td><input id='newName' class='form-control' type='text'/></td>" + "<td><input id='newCost' class='form-control' type='text' /></td>" + "</tr>";
+		ingredientsString += "<tr>"
+				+ "<td><input class='btn btn-info' type='button' value='Add' onClick='addIngredients();' /></td>"
+				+ "<td><input id='newName' class='form-control' type='text'/></td>"
+				+ "<td><input id='newCost' class='form-control' type='text' /></td>"
+				+ "</tr>";
 
 		for (PizzaIngredients p : orderManager.getAllIngredients()) {
-			ingredientsString += "<tr>" + "<td>" + p.getId() + "</td>" + "<td><input class='form-control' type='text' id='name" + p.getId() + "' value='" + p.getName() + "'/></td>" + "<td><input class='form-control' type='text' id='cost" + p.getId() + "' value='" + p.getCost() + "'/></td><td><input class='form-control' type='checkbox' /></td>" + "</tr>";
+			ingredientsString += "<tr>"
+					+ "<td>"
+					+ p.getId()
+					+ "</td>"
+					+ "<td><input class='form-control' type='text' id='name"
+					+ p.getId()
+					+ "' value='"
+					+ p.getName()
+					+ "'/></td>"
+					+ "<td><input class='form-control' type='text' id='cost"
+					+ p.getId()
+					+ "' value='"
+					+ p.getCost()
+					+ "'/></td><td><input class='form-control' type='checkbox' /></td>"
+					+ "</tr>";
 		}
 
 		ingredientsString += "<tr><td><input class='btn btn-info' type='button' value='Apply Modify' onClick='sendModify();' /></td></tr></table>";
@@ -113,7 +136,8 @@ public class AdminController {
 
 	@RequestMapping(value = "/addIngredients", method = RequestMethod.POST)
 	public @ResponseBody
-	String adminAddIngredients(@RequestParam(value = "Name") String name, @RequestParam(value = "Cost") Double cost, Model model) {
+	String adminAddIngredients(@RequestParam(value = "Name") String name,
+			@RequestParam(value = "Cost") Double cost, Model model) {
 
 		if (!model.containsAttribute("admin")) {
 			return "Permission Denied";
@@ -132,7 +156,8 @@ public class AdminController {
 
 	@RequestMapping(value = "/modifyIngredients", method = RequestMethod.POST)
 	public @ResponseBody
-	String admiModifyIngredients(@RequestParam(value = "Data") String data, Model model) {
+	String admiModifyIngredients(@RequestParam(value = "Data") String data,
+			Model model) {
 
 		if (!model.containsAttribute("admin")) {
 			return "Permission Denied";
@@ -154,7 +179,9 @@ public class AdminController {
 					orderManager.deletePizzaIngredients(id);
 				} else
 					orderManager.updatePizzaIngredients(id, name, cost);
-//				System.out.println("ID " + ingString[0] + " " + "NAME " + ingString[1] + " " + "COST " + ingString[2] + " " + "REMOVE " + ingString[3]);
+				// System.out.println("ID " + ingString[0] + " " + "NAME " +
+				// ingString[1] + " " + "COST " + ingString[2] + " " + "REMOVE "
+				// + ingString[3]);
 			}
 
 		}
@@ -172,10 +199,50 @@ public class AdminController {
 
 		return "buildPizzaAdmin";
 	}
+	
+	@RequestMapping(value = "/addPizzaChef", method = RequestMethod.GET)
+	public ModelAndView addPizzaChef(Model model) {
+		if (!model.containsAttribute("admin"))
+			return new ModelAndView("redirect:accountAdmin.html", "command", "");
+		
+		 return new ModelAndView("addPizzaChef", "command", new PizzaChef());
+	}
+	
+	@RequestMapping(value = "/addPizzaChefForm", method = RequestMethod.POST)
+	public String addPizzaChefForm(@ModelAttribute("SpringWeb")PizzaChef pizzaChef,Model model) {
+		if (!model.containsAttribute("admin"))
+			return "redirect:accountAdmin.html";
+//		System.out.println(pizzaChef.getName()+" "+pizzaChef.getSurname()+" "+pizzaChef.getUsername()+" "+pizzaChef.getHashPasswd());
+		String hpwd = MD5Java.md5Java(pizzaChef.getHashPasswd());
+		boolean result=accessManager.insertPizzaChef(pizzaChef.getName(), pizzaChef.getSurname(), pizzaChef.getUsername(), hpwd);
+		model.addAttribute("result", result);
+		return "addPizzaChefOk";
+	}
+	@RequestMapping(value = "/addDeliveryMan", method = RequestMethod.GET)
+	public ModelAndView addDeliveryMan(Model model) {
+		if (!model.containsAttribute("admin"))
+			return new ModelAndView("redirect:accountAdmin.html", "command", "");
+		
+		return new ModelAndView("addDeliveryMan", "command", new Deliveryman());
+	}
+	
+	@RequestMapping(value = "/addDeliveryManForm", method = RequestMethod.POST)
+	public String addDeliveryManForm(@ModelAttribute("SpringWeb")Deliveryman deliveryman,Model model) {
+		if (!model.containsAttribute("admin"))
+			return "redirect:accountAdmin.html";
+//		System.out.println(deliveryman.getName()+" "+deliveryman.getSurname()+" "+deliveryman.getUsername()+" "+deliveryman.getHashPasswd());
+		String hpwd = MD5Java.md5Java(deliveryman.getHashPasswd());
+		boolean result=accessManager.insertDeliveryman(deliveryman.getName(), deliveryman.getSurname(), deliveryman.getUsername(),deliveryman.getPhoneNumber(), hpwd);
+		model.addAttribute("result", result);
+		return "addDeliveryManOk";
+	}
 
 	@RequestMapping(value = "/addAdminPizza", method = RequestMethod.POST)
 	public @ResponseBody
-	String addToCartBuildAdmin(@RequestParam(value = "Discount") String discountString, @RequestParam(value = "Name") String name, @RequestParam(value = "send") String ingridients, Model model) {
+	String addToCartBuildAdmin(
+			@RequestParam(value = "Discount") String discountString,
+			@RequestParam(value = "Name") String name,
+			@RequestParam(value = "send") String ingridients, Model model) {
 
 		double discount = 0;
 
@@ -193,35 +260,42 @@ public class AdminController {
 		String[] parts = ingridients.split(",");
 
 		for (int i = 0; i < parts.length; i++) {
-			ingredientsPizza.add(orderManager.getIngredient(Long.parseLong(parts[i])));
+			ingredientsPizza.add(orderManager.getIngredient(Long
+					.parseLong(parts[i])));
 		}
 		orderManager.insertPizza(name, ingredientsPizza, discount);
 		return "OK";
 	}
 
-	@RequestMapping(value="uploadImage",method = RequestMethod.POST)
-	public String uploadImage( @RequestParam("image") MultipartFile image,@RequestParam("NamePizza") String name, Model model,HttpSession session) {
+	@RequestMapping(value = "uploadImage", method = RequestMethod.POST)
+	public String uploadImage(@RequestParam("image") MultipartFile image,
+			@RequestParam("NamePizza") String name, Model model,
+			HttpSession session) {
 
 		if (!model.containsAttribute("admin"))
 			return "redirect:accountAdmin.html";
-		
+
 		try {
 			if (!image.isEmpty()) {
-				saveImage(session.getServletContext().getRealPath("/"), name + ".png", image);
-				model.addAttribute("resultAdding", "<strong style='color: green;'>File upload</strong>");
+				saveImage(session.getServletContext().getRealPath("/"), name
+						+ ".png", image);
+				model.addAttribute("resultAdding",
+						"<strong style='color: green;'>File upload</strong>");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			model.addAttribute("resultAdding", "<strong style='color: red;'>File not upload</strong>");
+			model.addAttribute("resultAdding",
+					"<strong style='color: red;'>File not upload</strong>");
 		}
 		List<PizzaIngredients> listPizza = orderManager.getAllIngredients();
 		model.addAttribute("listPizzaIngredients", listPizza);
-		
+
 		return "buildPizzaAdmin";
 	}
 
-	private void saveImage(String path,String filename, MultipartFile image) throws IOException {
-		File file = new File( path+ "/resource/img/pizza/" + filename);
+	private void saveImage(String path, String filename, MultipartFile image)
+			throws IOException {
+		File file = new File(path + "/resource/img/pizza/" + filename);
 		FileOutputStream writer = new FileOutputStream(file);
 		writer.write(image.getBytes());
 		writer.flush();
