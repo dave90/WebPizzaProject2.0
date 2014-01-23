@@ -38,14 +38,13 @@ public class OrderDAOImpl implements OrderDAO {
 			List<PizzaQuantity> pizzasToInsert=new ArrayList<PizzaQuantity>();
 			double totalPrice=0;
 			for(PizzaQuantity pq:pizzas){
-//				Pizza pizza=pq.getPizza();
-//				Pizza p=(Pizza) session.get(Pizza.class,pizza.getId());
-//				
-//				PizzaQuantity pizzaQuantityToInsert=new PizzaQuantity();
-//				pizzaQuantityToInsert.setPizza(p);
-//				pizzaQuantityToInsert.setQuantity(pq.getQuantity());
-//				pizzasToInsert.add(pizzaQuantityToInsert);
-				session.merge(pq);
+				Pizza pizza=pq.getPizza();
+				Pizza p=(Pizza) session.get(Pizza.class,pizza.getId());
+				
+				PizzaQuantity pizzaQuantityToInsert=new PizzaQuantity();
+				pizzaQuantityToInsert.setPizza(p);
+				pizzaQuantityToInsert.setQuantity(pq.getQuantity());
+				pizzasToInsert.add(pizzaQuantityToInsert);
 				System.out.println(pq.getPizza().getName());
 				
 				totalPrice+=pq.getPizza().getPrize()*pq.getQuantity();

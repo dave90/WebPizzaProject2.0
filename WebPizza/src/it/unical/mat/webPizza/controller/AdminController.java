@@ -154,6 +154,41 @@ public class AdminController {
 
 		return "ING no added";
 	}
+	
+	@RequestMapping(value = "/adminEditPizza", method = RequestMethod.POST)
+	public @ResponseBody
+	String adminEditPizza(Model model, SessionStatus sessionStatus) {
+		if (!model.containsAttribute("admin")) {
+			return "redirect:adminLogin.html";
+		}
+
+		String pizzaString = "<table class='table table-striped' id='PizzaTable'>";
+		pizzaString += "<thead><tr><th>Id</th><th>Name</th><th>Cost</th><th>Delete</th></tr></thead>";
+		List<Pizza> allPizza=orderManager.getAllPizza();
+		allPizza.addAll(orderManager.getAllClientPizza());
+
+		for (Pizza p : allPizza) {
+			pizzaString += "<tr>"
+					+ "<td>"
+					+ p.getId()
+					+ "</td>"
+					+ "<td><input readonly class='form-control' type='text' id='name"
+					+ p.getId()
+					+ "' value='"
+					+ p.getName()
+					+ "'/></td>"
+					+ "<td><input readonly class='form-control' type='text' id='cost"
+					+ p.getId()
+					+ "' value='"
+					+ p.getPrize()
+					+ "'/></td><td><input class='form-control' type='checkbox' /></td>"
+					+ "</tr>";
+		}
+
+		pizzaString += "<tr><td><input class='btn btn-info' type='button' value='Apply Modify' onClick='sendModifyEditPizza();' /></td></tr></table>";
+
+		return pizzaString;
+	}
 
 	@RequestMapping(value = "/modifyIngredients", method = RequestMethod.POST)
 	public @ResponseBody
@@ -183,6 +218,35 @@ public class AdminController {
 				// System.out.println("ID " + ingString[0] + " " + "NAME " +
 				// ingString[1] + " " + "COST " + ingString[2] + " " + "REMOVE "
 				// + ingString[3]);
+			}
+
+		}
+
+		return "ING update";
+	}
+	
+	@RequestMapping(value = "/editAdminPizza", method = RequestMethod.POST)
+	public @ResponseBody
+	String editAdminPizza(@RequestParam(value = "Data") String data,
+			Model model) {
+
+		if (!model.containsAttribute("admin")) {
+			return "Permission Denied";
+		}
+
+		String[] pizza = data.split(";");
+		for (String s : pizza) {
+
+			String[] ingString = s.split(",");
+			if (ingString.length == 2) {
+				Long id = Long.parseLong(ingString[0]);
+				boolean remove = false;
+				if (ingString[1].equalsIgnoreCase("true"))
+					remove = true;
+
+				if (remove) {
+					orderManager.deletePizza(id);
+				} 
 			}
 
 		}

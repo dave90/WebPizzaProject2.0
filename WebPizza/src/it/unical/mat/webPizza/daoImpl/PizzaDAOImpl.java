@@ -110,7 +110,7 @@ public class PizzaDAOImpl implements PizzaDAO {
 		try {
 			transaction = session.beginTransaction();
 			
-			result=session.createQuery("FROM Pizza WHERE client is not null").list();
+			result=session.createQuery("FROM Pizza WHERE client is not null AND deleted=false").list();
 			
 			transaction.commit();
 		} catch (HibernateException e) {

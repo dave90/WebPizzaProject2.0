@@ -61,9 +61,10 @@
                <div class="col-md-3">
                   <div class="sidey">
                      <ul class="nav">
-                         <li><a href="account.html">My Account</a></li>
+                         <li><a href="accountAdmin.html">My Account</a></li>
                          <li><a href="#" id="ingredients">Ingredients</a></li>
-                         <li><a href="buildPizzaAdmin.html">Pizza</a></li>                         
+                         <li><a href="#" id="editPizza">Edit Pizza</a></li>
+                         <li><a href="buildPizzaAdmin.html">Add Pizza</a></li>                         
                          <li><a href="editPizzeriaInformation.html">Edit Profile</a></li>
 							<li><a href="addPizzaChef.html">Add Pizza Chef</a></li>
 							<li><a href="addDeliveryMan.html">Add DeliveryMan</a></li>
