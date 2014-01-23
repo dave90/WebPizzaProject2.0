@@ -30,14 +30,18 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 		try {
 			transaction = session.beginTransaction();
 			
+			double totalPrice=0;
 			Client clientToInset=(Client) session.get(Client.class, client.getId());
 			List<PizzaQuantity> pizzasToInsert=new ArrayList<PizzaQuantity>();
 			for(PizzaQuantity pq:pizzas){
-				Pizza p=(Pizza) session.get(Pizza.class,pq.getPizza().getId());
+				Pizza pizza=pq.getPizza();
+				Pizza p=(Pizza) session.get(Pizza.class,pizza.getId());
+
 				PizzaQuantity pizzaQuantityToInsert=new PizzaQuantity();
 				pizzaQuantityToInsert.setPizza(p);
 				pizzaQuantityToInsert.setQuantity(pq.getQuantity());
 				pizzasToInsert.add(pizzaQuantityToInsert);
+				totalPrice+=pq.getPizza().getPrize()*pq.getQuantity();
 			}
 			
 			OnlineOrder order=new OnlineOrder();
@@ -48,6 +52,8 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 			order.setDeliveryStatus(deliveryStatus);
 			order.setAddress(address);
 			order.setDate(date);
+			order.setPrice(totalPrice);
+
 			
 			id = (Long) session.save(order);
 			transaction.commit();

@@ -10,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
+
+import org.hibernate.annotations.OptimisticLock;
 
 @Entity
 @Table(name="PIZZA_INGREDIENT")
@@ -28,6 +31,12 @@ public class PizzaIngredients implements Serializable{
 	
 	@ManyToMany(mappedBy="ingredients")
 	private List<Pizza> pizzas=new ArrayList<Pizza>();
+	
+	@Column(name="deleted")
+	private boolean deleted;
+	
+	@Version
+	private int version;
 	
 	public PizzaIngredients() {
 	}
@@ -62,6 +71,22 @@ public class PizzaIngredients implements Serializable{
 
 	public void setPizzas(List<Pizza> pizzas) {
 		this.pizzas = pizzas;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override

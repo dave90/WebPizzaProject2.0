@@ -106,7 +106,7 @@ public class DeliverymanTourManager {
 		for(PizzaQuantity p:order.getPizzas()){
 			response+="<tr>"+"<td>"+p.getPizza().getName()+"</td>"+"<td>"+p.getQuantity()+"</td>"+"</tr>";
 		}
-		response+="<tr>"+"<th>Total</th><th>&euro; "+order.getPrize()+"</th>"+"</tr>";
+		response+="<tr>"+"<th>Total</th><th>&euro; "+order.getPrice()+"</th>"+"</tr>";
 		return response;
 	}
 	

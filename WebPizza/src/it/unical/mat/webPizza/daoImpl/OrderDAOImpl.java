@@ -24,46 +24,6 @@ import it.unical.mat.webPizza.util.HibernateUtil;
 
 public class OrderDAOImpl implements OrderDAO {
 
-	@Override
-	public Long insertOrder(String date,String status, List<PizzaQuantity> pizzas,boolean paid, Client client,
-			PizzaChef chef) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = null;
-		Long id = null;
-		try {
-			transaction = session.beginTransaction();
-			
-			Client clientToInset=(Client) session.get(Client.class, client.getId());
-			PizzaChef chefToInsert=(PizzaChef) session.get(PizzaChef.class, chef.getId());
-			List<PizzaQuantity> pizzasToInsert=new ArrayList<PizzaQuantity>();
-			for(PizzaQuantity pq:pizzas){
-				Pizza p=(Pizza) session.get(Pizza.class,pq.getPizza().getId());
-				PizzaQuantity pizzaQuantityToInsert=new PizzaQuantity();
-				pizzaQuantityToInsert.setPizza(p);
-				pizzaQuantityToInsert.setQuantity(pq.getQuantity());
-				pizzasToInsert.add(pizzaQuantityToInsert);
-			}
-			
-			Order order=new Order();
-			order.setPizzas(pizzasToInsert);
-			order.setPaid(paid);
-			order.setStatus(status);
-			order.setClient(clientToInset);
-			order.setPizzaiolo(chefToInsert);
-			order.setDate(date);
-			
-			id = (Long) session.save(order);
-			transaction.commit();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			transaction.rollback();
-			id=null;
-		} finally {
-			session.close();
-		}
-		
-		return id;
-	}
 
 	@Override
 	public Long insertOrder(String date,String status, List<PizzaQuantity> pizzas, boolean paid,
@@ -76,27 +36,37 @@ public class OrderDAOImpl implements OrderDAO {
 			
 			Client clientToInset=(Client) session.get(Client.class, client.getId());
 			List<PizzaQuantity> pizzasToInsert=new ArrayList<PizzaQuantity>();
+			double totalPrice=0;
 			for(PizzaQuantity pq:pizzas){
-				Pizza p=(Pizza) session.get(Pizza.class,pq.getPizza().getId());
-				PizzaQuantity pizzaQuantityToInsert=new PizzaQuantity();
-				pizzaQuantityToInsert.setPizza(p);
-				pizzaQuantityToInsert.setQuantity(pq.getQuantity());
-				pizzasToInsert.add(pizzaQuantityToInsert);
+//				Pizza pizza=pq.getPizza();
+//				Pizza p=(Pizza) session.get(Pizza.class,pizza.getId());
+//				
+//				PizzaQuantity pizzaQuantityToInsert=new PizzaQuantity();
+//				pizzaQuantityToInsert.setPizza(p);
+//				pizzaQuantityToInsert.setQuantity(pq.getQuantity());
+//				pizzasToInsert.add(pizzaQuantityToInsert);
+				session.merge(pq);
+				System.out.println(pq.getPizza().getName());
+				
+				totalPrice+=pq.getPizza().getPrize()*pq.getQuantity();
 			}
 			
 			
 			Order order=new Order();
-			order.setPizzas(pizzasToInsert);
+			order.setPizzas(pizzas);
 			order.setPaid(paid);
 			order.setStatus(status);
 			order.setClient(clientToInset);
 			order.setDate(date);
+			order.setPrice(totalPrice);
+
 			
 			id = (Long) session.save(order);
 			transaction.commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			transaction.rollback();
+			id=null;
 		} finally {
 			session.close();
 		}

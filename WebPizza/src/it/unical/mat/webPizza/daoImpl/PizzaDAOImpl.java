@@ -40,6 +40,7 @@ public class PizzaDAOImpl implements PizzaDAO {
 			pizza.setDiscount(discount);
 			pizza.setIngredients(ingredientsToInsert);
 			pizza.setClient(clientToInset);
+			pizza.setDeleted(false);
 			
 			
 			id = (Long) session.save(pizza);
@@ -66,10 +67,8 @@ public class PizzaDAOImpl implements PizzaDAO {
 			
 			
 			Pizza pizza=(Pizza) session.get(Pizza.class, id);
-			pizza.setIngredients(null);
+			pizza.setDeleted(true);
 			session.update(pizza);
-			
-			session.delete(pizza);
 			
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -90,7 +89,7 @@ public class PizzaDAOImpl implements PizzaDAO {
 		try {
 			transaction = session.beginTransaction();
 			
-			result=session.createQuery("FROM Pizza WHERE client is null").list();
+			result=session.createQuery("FROM Pizza WHERE client is null AND deleted=false").list();
 			
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -143,6 +142,7 @@ public class PizzaDAOImpl implements PizzaDAO {
 		}
 		return pizza;
 	}
+
 	
 
 }

@@ -30,6 +30,7 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 
 			ingredients.setName(name);
 			ingredients.setCost(cost);
+			ingredients.setDeleted(false);
 
 			id = (Long) session.save(ingredients);
 			transaction.commit();
@@ -54,20 +55,8 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 
 
 			PizzaIngredients ingredient = (PizzaIngredients) session.load(PizzaIngredients.class, id);
-			if (ingredient != null) {
-				for (Pizza p : ingredient.getPizzas()){
-					for(int i=0;i<p.getIngredients().size();i++)
-						if(p.getIngredients().get(i).getId()==ingredient.getId()){
-							p.getIngredients().remove(i);
-							break;
-						}
-				}
-				ingredient.setPizzas(null);
-
-				session.delete(ingredient);
-				session.flush();
-				result = 1;
-			}
+			ingredient.setDeleted(true);
+			session.update(ingredient);
 
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -89,7 +78,7 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 		try {
 			transaction = session.beginTransaction();
 
-			result = session.createQuery("FROM PizzaIngredients").list();
+			result = session.createQuery("FROM PizzaIngredients WHERE deleted=false").list();
 
 			transaction.commit();
 		} catch (HibernateException e) {

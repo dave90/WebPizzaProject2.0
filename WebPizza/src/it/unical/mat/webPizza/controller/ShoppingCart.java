@@ -1,5 +1,6 @@
 package it.unical.mat.webPizza.controller;
 
+import it.unical.mat.webPizza.daoImpl.PizzaDAOImpl;
 import it.unical.mat.webPizza.domain.Client;
 import it.unical.mat.webPizza.domain.Pizza;
 import it.unical.mat.webPizza.util.HibernateUtil;
@@ -50,6 +51,7 @@ public class ShoppingCart implements Serializable{
 			pizza=pizzaDB;
 		
 		pizzaQuantity.put(pizza,quantity);
+		
 		updateTotalprice();
 	}
 	void insertPizzaBuild(String namePizza,int quantity, String ingridients, OrderManager orderManager, Client client){
@@ -76,10 +78,12 @@ public class ShoppingCart implements Serializable{
 		Long id = orderManager.insertPizza(pizza.getName(), pizza.getIngredients(), pizza.getDiscount(),client);
 		pizza.setId(id);
 		pizzaQuantity.put(pizza,quantity);
+		
+		
 		updateTotalprice();
 	}
 
-	double updateTotalprice(){
+	public double updateTotalprice(){
 		totalprice=0;
 		for(Pizza p:pizzaQuantity.keySet()){
 			totalprice+=p.getPrize()*pizzaQuantity.get(p);

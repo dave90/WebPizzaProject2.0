@@ -109,7 +109,6 @@
                 <tr>
                   <th>Name</th>
                   <th>Quantity</th>
-                  <th>Price</th>
                 </tr>
               </thead>
               <tbody id="cartBody">
@@ -117,13 +116,12 @@
               <tr>
               	<td>${pizza.pizza.name}</td>
               	<td>${pizza.quantity}</td>
-              	<td>&euro; <c:out value="${pizza.pizza.prize * pizza.quantity}" /></td>
               </tr>
               </c:forEach>
               <tr>
               <th></th>
               <th>Total</th>
-              <th>&euro; ${order.prize}</th>
+              <th>&euro; ${order.price}</th>
               </tr>
               </tbody>
             </table>

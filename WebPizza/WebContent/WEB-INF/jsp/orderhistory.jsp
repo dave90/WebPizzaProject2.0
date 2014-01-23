@@ -90,7 +90,7 @@
                         <td>${order.date}</td>
                         <td><a href="order.html?idOrder=${order.id}">${order.id}</a></td>
                         <td>${order.numberPizza}</td>
-                        <td>&euro; ${order.prize}</td>
+                        <td>&euro; ${order.price}</td>
                         <td>${order.status}</td>
                       </tr>
                       </c:forEach>

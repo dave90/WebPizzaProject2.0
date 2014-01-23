@@ -384,7 +384,10 @@ public class AccountController {
 			id=orderManager.insertOrder(dateFormat.format(date),pizza, paymentMethod.equals("Credit Card"), client);
 	
 		if(id==null){	
-			model.addAttribute("errorMessage", errorMessage);
+			model.addAttribute("errorMessage", "Same pizza ar not avaliable, please reinsert the pizza");
+			ShoppingCart cart=(ShoppingCart) model.asMap().get("cart");
+			cart.getPizzaQuantity().clear();
+			cart.updateTotalprice();
 			return "checkout";
 		}
 		

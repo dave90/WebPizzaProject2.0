@@ -16,6 +16,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
+
+import org.hibernate.annotations.OptimisticLock;
 
 @Entity
 @Table(name="PIZZA")
@@ -28,7 +31,6 @@ public class Pizza implements Serializable{
 	
 	@Column(name="NAME")
 	private String name;
-	
 	
 	@ManyToMany(fetch=FetchType.EAGER,cascade = { CascadeType.ALL })
 	@JoinTable(name = "PIZZA_INGREDIENTS", 
@@ -45,6 +47,10 @@ public class Pizza implements Serializable{
 	@Column(name="DISCOUNT")
 	private double discount;
 	
+	@Column(name="deleted")
+	private boolean deleted;
+	
+	
 	public Pizza() {
 	}
 	
@@ -59,6 +65,7 @@ public class Pizza implements Serializable{
 		
 		return prize;
 	}
+	
 
 	public Long getId() {
 		return id;
@@ -98,6 +105,14 @@ public class Pizza implements Serializable{
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	@Override

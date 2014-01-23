@@ -121,7 +121,7 @@
               <tr>
               <th></th>
               <th>Total</th>
-              <th>&euro; ${order.prize}</th>
+              <th>&euro; ${order.price}</th>
               </tr>              
               </tbody>
             </table>

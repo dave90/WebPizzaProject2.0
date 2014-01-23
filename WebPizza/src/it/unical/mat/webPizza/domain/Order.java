@@ -62,6 +62,9 @@ public class Order implements Comparable<Order>{
 	
 	@Column(name="DATE")
 	private String date;
+	
+	@Column(name="PRICE")
+	private double price;
 
 
 	@ManyToMany(cascade = { CascadeType.ALL })
@@ -133,13 +136,6 @@ public class Order implements Comparable<Order>{
 		this.paid = paid;
 	}
 	
-	public double getPrize(){
-		double total=0;
-		for(PizzaQuantity pq:pizzas)
-			total+=pq.getPizza().getPrize()*pq.getQuantity();
-		return total;
-	}
-	
 	public int getNumberPizza(){
 		int quantity=0;
 		for(PizzaQuantity pq:pizzas)
@@ -153,6 +149,14 @@ public class Order implements Comparable<Order>{
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 	@Override

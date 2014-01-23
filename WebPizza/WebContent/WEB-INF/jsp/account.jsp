@@ -112,7 +112,7 @@
                         <td>${order.date}</td>
                         <td>${order.id}</td>
                         <td>${order.numberPizza}</td>
-                        <td>&euro; ${order.prize}</td>
+                        <td>&euro; ${order.price}</td>
                         <td>${order.status}</td>
                       </tr>
                       </c:forEach>
