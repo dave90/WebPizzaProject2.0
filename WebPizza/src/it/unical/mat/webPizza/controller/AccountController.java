@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -297,10 +298,10 @@ public class AccountController {
 		
 		if(!model.containsAttribute("client"))
 			return "redirect:account.html";
-		
-		cartPizzas.insertPizzaBuild("Build"
-				+ cartPizzas.getPizzaQuantity().size(), quantity, ingridients,
-				orderManager,(Client)model.asMap().get("client"));
+		Client client=(Client)model.asMap().get("client");
+		cartPizzas.insertPizzaBuild(client.getUsername()
+				+ new Random().nextInt(), quantity, ingridients,
+				orderManager,client);
 
 		return cartPizzas.getTableBody();
 	}
