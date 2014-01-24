@@ -1,11 +1,10 @@
-package it.unical.mat.webPizza.controller;
+package it.unical.mat.webPizza.service;
 
 import it.unical.mat.webPizza.daoImpl.PizzaDAOImpl;
 import it.unical.mat.webPizza.domain.Client;
 import it.unical.mat.webPizza.domain.Pizza;
 import it.unical.mat.webPizza.util.HibernateUtil;
 import it.unical.mat.webPizza.domain.PizzaIngredients;
-import it.unical.mat.webPizza.service.OrderManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class ShoppingCart implements Serializable{
 		this.pizzaQuantity = pizzaQuantity;
 	}
 
-	void deletePizza(String name){
+	public void deletePizza(String name){
 		for(Pizza p:pizzaQuantity.keySet()){
 			if(p.getName().equals(name)){
 				pizzaQuantity.remove(p);
@@ -35,7 +34,7 @@ public class ShoppingCart implements Serializable{
 		}
 	}
 	
-	void insertPizza(Long idPizza,Pizza pizzaDB,int quantity){
+	public void insertPizza(Long idPizza,Pizza pizzaDB,int quantity){
 		Pizza pizza=null;
 		for(Pizza p:pizzaQuantity.keySet()){
 			if(p.getId()==idPizza){
@@ -54,7 +53,7 @@ public class ShoppingCart implements Serializable{
 		
 		updateTotalprice();
 	}
-	void insertPizzaBuild(String namePizza,int quantity, String ingridients, OrderManager orderManager, Client client){
+	public void insertPizzaBuild(String namePizza,int quantity, String ingridients, OrderManager orderManager, Client client){
 		ArrayList<PizzaIngredients> ingredientsPizza=new ArrayList<PizzaIngredients>();
 		Pizza pizza=new Pizza();
 		pizza.setName(namePizza);
@@ -91,7 +90,7 @@ public class ShoppingCart implements Serializable{
 		return totalprice;
 	}
 	
-	String getTableBody(){
+	public String getTableBody(){
 		String tableToAppend="";
 		int count =0;
 		for(Pizza p:pizzaQuantity.keySet()){

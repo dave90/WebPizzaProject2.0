@@ -38,13 +38,5 @@
 	<bean id="manageBalanceChef" class="it.unical.mat.webPizza.service.ManageBalanceChef" />
 	<bean id="manageBalanceDeliveryman" class="it.unical.mat.webPizza.service.MangeBalanceDeliveryman"  /> 
    
-<!--    <aop:config>
-  	 <aop:aspect id="addChecfLogin" ref="manageBalanceChef">
-  			   <aop:pointcut id="addPizzaChef"
-     				 expression="execution(* it.unical.mat.webPizza.dao.PizzaChefDAO.getPizzaChef(..))"/> 
-     				 
-     				 <aop:after-returning pointcut-ref="addPizzaChef" method="insertChef"/>
-   	</aop:aspect>
-</aop:config> -->
 </beans>
 	

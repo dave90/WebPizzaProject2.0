@@ -23,6 +23,7 @@ import it.unical.mat.webPizza.domain.PizzaQuantity;
 import it.unical.mat.webPizza.service.AccessManager;
 import it.unical.mat.webPizza.service.ManageBalanceChef;
 import it.unical.mat.webPizza.service.OrderManager;
+import it.unical.mat.webPizza.service.ShoppingCart;
 import it.unical.mat.webPizza.util.MD5Java;
 
 import org.apache.commons.collections.map.HashedMap;

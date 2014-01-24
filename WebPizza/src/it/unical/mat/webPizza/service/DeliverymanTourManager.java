@@ -1,4 +1,4 @@
-package it.unical.mat.webPizza.controller;
+package it.unical.mat.webPizza.service;
 
 import it.unical.mat.webPizza.daoImpl.PizzeriaDAOImpl;
 import it.unical.mat.webPizza.domain.OnlineOrder;
