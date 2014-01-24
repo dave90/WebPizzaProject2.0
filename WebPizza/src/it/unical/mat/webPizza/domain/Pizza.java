@@ -50,6 +50,9 @@ public class Pizza implements Serializable{
 	@Column(name="deleted")
 	private boolean deleted;
 	
+	@Version
+	private int version;
+	
 	
 	public Pizza() {
 	}

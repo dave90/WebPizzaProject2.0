@@ -17,6 +17,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.StaleObjectStateException;
 import org.hibernate.Transaction;
 
 public class OnlineOrderDAOImpl implements OnlineOrderDAO{
@@ -35,12 +36,13 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 			List<PizzaQuantity> pizzasToInsert=new ArrayList<PizzaQuantity>();
 			for(PizzaQuantity pq:pizzas){
 				Pizza pizza=pq.getPizza();
-				Pizza p=(Pizza) session.get(Pizza.class,pizza.getId());
+				Pizza p=(Pizza) session.merge(pizza);
 
 				PizzaQuantity pizzaQuantityToInsert=new PizzaQuantity();
 				pizzaQuantityToInsert.setPizza(p);
 				pizzaQuantityToInsert.setQuantity(pq.getQuantity());
 				pizzasToInsert.add(pizzaQuantityToInsert);
+				
 				totalPrice+=pq.getPizza().getPrize()*pq.getQuantity();
 			}
 			
@@ -61,7 +63,7 @@ public class OnlineOrderDAOImpl implements OnlineOrderDAO{
 			e.printStackTrace();
 			transaction.rollback();
 			id=null;
-		} finally {
+		}finally {
 			session.close();
 		}
 		

@@ -7,6 +7,7 @@ import it.unical.mat.webPizza.domain.PizzaIngredients;
 import it.unical.mat.webPizza.util.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -100,11 +101,17 @@ public class PizzaIngredientsDAOImpl implements PizzaIngredientsDAO {
 			transaction = session.beginTransaction();
 
 			PizzaIngredients ingredient = (PizzaIngredients) session.load(PizzaIngredients.class, id);
-			if (ingredient != null) {
+			if (ingredient != null && ( !name.equals(ingredient.getName()) || cost!=ingredient.getCost())) {
 				ingredient.setCost(cost);
 				ingredient.setName(name);
 
 				session.update(ingredient);
+				for(Pizza p:ingredient.getPizzas())
+					for(int i=0;i<p.getIngredients().size();i++)
+						if(p.getIngredients().get(i).getId()==ingredient.getId()){
+							p.getIngredients().set(i, ingredient);
+						}
+				
 				result = true;
 			}
 			transaction.commit();

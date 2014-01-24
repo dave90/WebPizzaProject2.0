@@ -39,20 +39,19 @@ public class OrderDAOImpl implements OrderDAO {
 			double totalPrice=0;
 			for(PizzaQuantity pq:pizzas){
 				Pizza pizza=pq.getPizza();
-				Pizza p=(Pizza) session.get(Pizza.class,pizza.getId());
+				Pizza p=(Pizza) session.merge(pizza);
 				
 				PizzaQuantity pizzaQuantityToInsert=new PizzaQuantity();
 				pizzaQuantityToInsert.setPizza(p);
 				pizzaQuantityToInsert.setQuantity(pq.getQuantity());
 				pizzasToInsert.add(pizzaQuantityToInsert);
-				System.out.println(pq.getPizza().getName());
 				
 				totalPrice+=pq.getPizza().getPrize()*pq.getQuantity();
 			}
 			
 			
 			Order order=new Order();
-			order.setPizzas(pizzas);
+			order.setPizzas(pizzasToInsert);
 			order.setPaid(paid);
 			order.setStatus(status);
 			order.setClient(clientToInset);
