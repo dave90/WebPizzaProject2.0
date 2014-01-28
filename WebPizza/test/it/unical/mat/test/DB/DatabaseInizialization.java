@@ -9,8 +9,10 @@ import it.unical.mat.webPizza.daoImpl.DeliverymanDAOImpl;
 import it.unical.mat.webPizza.daoImpl.PizzaChefDAOImpl;
 import it.unical.mat.webPizza.daoImpl.PizzaDAOImpl;
 import it.unical.mat.webPizza.daoImpl.PizzaIngredientsDAOImpl;
+import it.unical.mat.webPizza.daoImpl.PizzeriaDAOImpl;
 import it.unical.mat.webPizza.domain.Pizza;
 import it.unical.mat.webPizza.domain.PizzaIngredients;
+import it.unical.mat.webPizza.domain.PizzeriaInformation;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -120,6 +122,7 @@ public class DatabaseInizialization {
 		new PizzaChefDAOImpl().insertPizzaChef("giovanni", "ianni", "gianni", "81dc9bdb52d04dc20036dbd8313ed055");
 		new DeliverymanDAOImpl().insertDeliveryman("francesco", "calimeri", "cali", "3243145", "81dc9bdb52d04dc20036dbd8313ed055");
 		new PizzaChefDAOImpl().insertPizzaChef("maurizio", "macri", "zzmauri", "81dc9bdb52d04dc20036dbd8313ed055");
+		new PizzeriaDAOImpl().modifyPizzeria("Cosenza Unical", "324-23432","WEb Pizza", "webPizza@gmail.com");
 		
 		for(int i=0;i<5;i++){
 			ArrayList<PizzaIngredients> ingredients2 = new ArrayList<PizzaIngredients>();

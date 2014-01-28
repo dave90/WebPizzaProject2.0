@@ -19,9 +19,8 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<bean id="ShoppingCart" class="it.unical.mat.webPizza.controller.ShoppingCart" />
-	<bean id="PizzeriaDAO" class="it.unical.mat.webPizza.daoImpl.PizzeriaDAOImpl" />
 	<bean id="ClientDAO" class="it.unical.mat.webPizza.daoImpl.ClientDAOImpl" />
+	<bean id="PizzeriaDAO" class="it.unical.mat.webPizza.daoImpl.PizzeriaDAOImpl" />
 	<bean id="AdminDAO" class="it.unical.mat.webPizza.daoImpl.AdminDAOImpl" />
 	<bean id="PizzaChefDAO" class="it.unical.mat.webPizza.daoImpl.PizzaChefDAOImpl" />
 	<bean id="DeliverymanDAO" class="it.unical.mat.webPizza.daoImpl.DeliverymanDAOImpl" />
@@ -29,6 +28,7 @@
 	<bean id="OnlineOrderDAO" class="it.unical.mat.webPizza.daoImpl.OnlineOrderDAOImpl" />
 	<bean id="PizzaDAO" class="it.unical.mat.webPizza.daoImpl.PizzaDAOImpl" />
 	<bean id="PizzaIngredientsDAO" class="it.unical.mat.webPizza.daoImpl.PizzaIngredientsDAOImpl" />
+	<bean id="ShoppingCart" class="it.unical.mat.webPizza.service.ShoppingCart" />
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:maxUploadSize="500000"/>
 
