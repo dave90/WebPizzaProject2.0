@@ -60,16 +60,17 @@
                <div class="col-md-3">
                   <div class="sidey">
                      <ul class="nav">
-                         <li><a href="account.html">My Account</a></li>
+                         <li><a href="accountAdmin.html">My Account</a></li>
                          <li><a href="#" id="ingredients">Ingredients</a></li>
-                         <li><a href="buildPizzaAdmin.html">Pizza</a></li>                         
-                         <li><a href="adminEditprofile.html">Edit Profile</a></li>
-                        <li><a href="addPizzaChef.html">Add Pizza Chef</a></li>
-						<li><a href="addDeliveryMan.html">Add DeliveryMan</a></li>
+                         <li><a href="#" id="editPizza">Edit Pizza</a></li>
+                         <li><a href="buildPizzaAdmin.html">Add Pizza</a></li>                         
+                         <li><a href="editPizzeriaInformation.html">Edit Profile</a></li>
+							<li><a href="addPizzaChef.html">Add Pizza Chef</a></li>
+							<li><a href="addDeliveryMan.html">Add DeliveryMan</a></li>
                      </ul>
                   </div>
                </div>
-               <div class="col-md-9">
+               <div class="col-md-9" id="mainDiv">
                   <h3><i class="icon-user color"></i> &nbsp;Edit Pizzeria</h3>
                   <!-- Your details -->
                   <form class="form-horizontal" action="editPizzeriaInfo.html" method="post">
@@ -143,5 +144,8 @@
 		<script src="resource/js/html5shiv.js"></script>
 		<!-- Custom JS -->
 		<script src="resource/js/custom.js"></script>
+		
+		<script src="resource/js/admin.js"></script>
+		
 	</body>	
 </html>

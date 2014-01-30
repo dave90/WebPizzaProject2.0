@@ -277,7 +277,6 @@ public class AdminController {
 	public String addPizzaChefForm(@ModelAttribute("SpringWeb")PizzaChef pizzaChef,Model model) {
 		if (!model.containsAttribute("admin"))
 			return "redirect:accountAdmin.html";
-//		System.out.println(pizzaChef.getName()+" "+pizzaChef.getSurname()+" "+pizzaChef.getUsername()+" "+pizzaChef.getHashPasswd());
 		String hpwd = MD5Java.md5Java(pizzaChef.getHashPasswd());
 		boolean result=accessManager.insertPizzaChef(pizzaChef.getName(), pizzaChef.getSurname(), pizzaChef.getUsername(), hpwd);
 		model.addAttribute("result", result);

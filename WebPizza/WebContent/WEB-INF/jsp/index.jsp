@@ -117,7 +117,7 @@
 						<!-- Item #1 -->
 						<c:forEach items="${listPizza}" var="pizza">
 						<c:set var="count" value="${count + 1}" scope="page"/>
-							<div class="col-md-4 col-sm-8 col-xs-6">
+							<div class="col-md-4 col-sm-8 col-xs-11">
 
 
 								<div class="item">
