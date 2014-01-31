@@ -19,8 +19,8 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<bean id="ClientDAO" class="it.unical.mat.webPizza.daoImpl.ClientDAOImpl" />
 	<bean id="PizzeriaDAO" class="it.unical.mat.webPizza.daoImpl.PizzeriaDAOImpl" />
+	<bean id="ClientDAO" class="it.unical.mat.webPizza.daoImpl.ClientDAOImpl" />
 	<bean id="AdminDAO" class="it.unical.mat.webPizza.daoImpl.AdminDAOImpl" />
 	<bean id="PizzaChefDAO" class="it.unical.mat.webPizza.daoImpl.PizzaChefDAOImpl" />
 	<bean id="DeliverymanDAO" class="it.unical.mat.webPizza.daoImpl.DeliverymanDAOImpl" />

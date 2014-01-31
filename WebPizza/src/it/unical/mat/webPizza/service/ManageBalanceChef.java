@@ -27,15 +27,13 @@ public class ManageBalanceChef {
 
 	ArrayList<PizzaChef> chefs = new ArrayList<PizzaChef>();
 
-	@AfterReturning(pointcut = "execution(* it.unical.mat.webPizza.daoImpl.PizzaChefDAOImpl.getPizzaChef(String,String))", returning = "chef")
+	@AfterReturning(pointcut = "execution(* it.unical.mat.webPizza.daoImpl.PizzaChefDAOImpl.getPizzaChef(String,String))",
+			returning = "chef")
 	public void logInChef(Object chef) {
 		if (chef != null) {
 			if (!present((PizzaChef) chef))
 				chefs.add((PizzaChef) chef);
 			manage();
-//			System.out.println("insert is running!");
-//			System.out.println("size " + chefs.size());
-//			System.out.println("******");
 		}
 	}
 
@@ -51,9 +49,6 @@ public class ManageBalanceChef {
 					chefs.remove(chefs.get(i));
 				}
 			}
-//			System.out.println("chef.getArgs()[0]	 " + chef.getArgs()[0]);
-//			System.out.println("size " + chefs.size());
-//			System.out.println("******");
 		}
 	}
 

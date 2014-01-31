@@ -62,7 +62,7 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="col-md-8 col-md-push-4 ">
+			<div class="col-md-8 col-md-push-2 ">
 				<%
 					response.addHeader("Refresh", "10");
 				%>
@@ -111,28 +111,8 @@
 
 			</div>
 
-			<div class="col-md-4 col-md-pull-8">
-				<!-- <div>Ready Orders</div>
-				<table class="table table-striped table-condensed">
-					<thead>
-						<tr>
-							<th>Number</th>
-						</tr>
-					</thead>
 
-					<tbody id="bodyTableReadyOrder">
-					</tbody>
-				</table> -->
-				<div class="sidey">
-					<ul class="nav">
-						<li><a href="index.html"><i class="icon-briefcase"></i>
-								&nbsp;View Ready Order</a>
-					</ul>
-				</div>
-				<div class="sep-bor"></div>
-			</div>
 		</div>
-	</div>
 	</div>
 
 
