@@ -64,6 +64,7 @@ public class ShoppingCart implements Serializable{
 			ingredientsPizza.add(orderManager.getIngredient(Long.parseLong(parts[i])));			
 		}
 		pizza.setIngredients(ingredientsPizza);
+		
 		for(Pizza p:pizzaQuantity.keySet()){
 			if(p.getName().equals(namePizza)){
 				int qty=pizzaQuantity.get(p);
@@ -76,6 +77,8 @@ public class ShoppingCart implements Serializable{
 		}
 		Long id = orderManager.insertPizza(pizza.getName(), pizza.getIngredients(), pizza.getDiscount(),client);
 		pizza.setId(id);
+		pizza.setClient(client);
+		
 		pizzaQuantity.put(pizza,quantity);
 		
 		

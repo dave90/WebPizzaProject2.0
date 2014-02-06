@@ -54,7 +54,7 @@
                   <div class="reg-login-info">
                      <h2>Login to Access Amazing Benefits <span class="color">!!!</span></h2>
                      <img src="resource/img/clients/woman-pizza2.jpg" alt="" class="img-responsive img-thumbnail" />
-                     <p>Join with us bla bla bla bla</p>
+                     <p></p>
                   </div>
                </div>
                <div class="col-md-6">

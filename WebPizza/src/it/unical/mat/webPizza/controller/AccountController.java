@@ -279,6 +279,9 @@ public class AccountController {
 			cartPizzas=(ShoppingCart) model.asMap().get("cart");
 		}
 		
+		if(quantity<0)
+			return cartPizzas.getTableBody();
+		
 		cartPizzas.insertPizza(id, orderManager.getPizza(id), quantity);
 		
 		return cartPizzas.getTableBody();
